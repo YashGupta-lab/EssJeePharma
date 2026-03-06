@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel – Ess Jee Pharmaceuticals</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap');
+:root{--bg:#0f1117;--sb:#161b27;--card:#1e2535;--bdr:#2a3347;--grn:#2d7a4f;--grnl:#3a9e65;--gold:#c9a84c;--txt:#e8ecf4;--txm:#9aaac8;--txd:#5a6a8a;--red:#e05252;--ok:#4caf82;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;}
+
+/* LOGIN */
+#login{min-height:100vh;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at center,#1a2d1f 0%,#0f1117 70%);}
+.lbox{background:var(--card);border:1px solid var(--bdr);border-radius:20px;padding:3rem;width:420px;max-width:95vw;}
+.llogo{text-align:center;margin-bottom:2rem;}
+.llogo .ico{width:64px;height:64px;background:var(--grn);border-radius:16px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:#fff;margin:0 auto 1rem;}
+.llogo h1{font-family:'Playfair Display',serif;font-size:1.5rem;}
+.llogo p{color:var(--txm);font-size:.85rem;margin-top:4px;}
+.fg{margin-bottom:1.2rem;}
+.fg label{display:block;font-size:.78rem;font-weight:600;color:var(--txm);margin-bottom:8px;text-transform:uppercase;letter-spacing:.08em;}
+.fg input{width:100%;padding:12px 16px;background:var(--bg);border:1px solid var(--bdr);border-radius:10px;color:var(--txt);font-size:.95rem;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s;}
+.fg input:focus{border-color:var(--grn);}
+.btn-login{width:100%;background:var(--grn);color:#fff;border:none;padding:13px;border-radius:10px;font-size:1rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;margin-top:.5rem;}
+.btn-login:hover{background:var(--grnl);}
+.lerr{color:var(--red);font-size:.85rem;margin-top:.8rem;display:none;text-align:center;}
+.lhint{text-align:center;color:var(--txd);font-size:.78rem;margin-top:1.5rem;}
+
+/* LAYOUT */
+#ap{display:none;}
+.layout{display:flex;min-height:100vh;}
+
+/* SIDEBAR */
+.sb{width:260px;background:var(--sb);border-right:1px solid var(--bdr);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:100;transition:transform .3s;}
+.sblogo{padding:1.5rem;border-bottom:1px solid var(--bdr);display:flex;align-items:center;gap:12px;}
+.sblogo .ico{width:40px;height:40px;background:var(--grn);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1rem;font-weight:900;color:#fff;flex-shrink:0;}
+.sblogo .br{font-family:'Playfair Display',serif;font-size:.95rem;}
+.sblogo .su{font-size:.65rem;color:var(--txd);text-transform:uppercase;letter-spacing:.1em;}
+.sbnav{flex:1;padding:1rem 0;overflow-y:auto;}
+.sbsec{padding:.8rem 1rem .3rem;font-size:.65rem;color:var(--txd);text-transform:uppercase;letter-spacing:.15em;font-weight:600;}
+.ni{display:flex;align-items:center;gap:12px;padding:10px 1.5rem;color:var(--txm);cursor:pointer;transition:all .2s;border-left:3px solid transparent;margin:2px 0;font-size:.88rem;}
+.ni:hover{color:var(--txt);background:rgba(255,255,255,.04);}
+.ni.act{color:var(--grnl);border-left-color:var(--grnl);background:rgba(45,122,79,.1);}
+.ni .bdg{margin-left:auto;background:var(--red);color:#fff;border-radius:100px;font-size:.65rem;padding:2px 7px;font-weight:700;}
+.sbfoot{padding:1rem 1.5rem;border-top:1px solid var(--bdr);}
+.urow{display:flex;align-items:center;gap:10px;}
+.uav{width:36px;height:36px;background:var(--grn);border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;flex-shrink:0;}
+.un{font-size:.85rem;font-weight:600;}
+.ur{font-size:.7rem;color:var(--txd);}
+.btn-lo{margin-left:auto;background:none;border:1px solid var(--bdr);color:var(--txm);padding:5px 10px;border-radius:6px;cursor:pointer;font-size:.75rem;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.btn-lo:hover{border-color:var(--red);color:var(--red);}
+.hbtn{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none;}
+.hbtn span{display:block;width:22px;height:2px;background:var(--txt);border-radius:2px;}
+
+/* MAIN */
+.mn{margin-left:260px;flex:1;}
+.topbar{background:var(--sb);border-bottom:1px solid var(--bdr);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;}
+.topbar h2{font-family:'Playfair Display',serif;font-size:1.3rem;}
+.topbar p{color:var(--txm);font-size:.85rem;}
+.ta{display:flex;gap:.75rem;align-items:center;}
+.cnt{padding:2rem;}
+
+/* STATS */
+.sgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-bottom:2rem;}
+.sc{background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:1.5rem;}
+.sc .lb{font-size:.75rem;color:var(--txd);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem;}
+.sc .vl{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;}
+
+/* PANELS */
+.pnl{background:var(--card);border:1px solid var(--bdr);border-radius:16px;margin-bottom:2rem;overflow:hidden;}
+.ph{padding:1.2rem 1.5rem;border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between;}
+.ph h3{font-size:1rem;font-weight:600;}
+.pb{padding:1.5rem;}
+
+/* BUTTONS */
+.btn{padding:9px 18px;border-radius:8px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:600;transition:all .2s;display:inline-flex;align-items:center;gap:6px;}
+.btng{background:var(--grn);color:#fff;}
+.btng:hover{background:var(--grnl);}
+.btnsm{background:none;border:1px solid var(--bdr);color:var(--txm);padding:6px 12px;border-radius:6px;cursor:pointer;font-size:.8rem;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.btnsm:hover{border-color:var(--txt);color:var(--txt);}
+.btnrd{background:none;border:1px solid transparent;color:var(--red);padding:6px 12px;border-radius:6px;cursor:pointer;font-size:.8rem;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.btnrd:hover{border-color:var(--red);background:rgba(224,82,82,.1);}
+
+/* TABLE */
+.tbl{width:100%;border-collapse:collapse;font-size:.88rem;}
+.tbl th{padding:10px 14px;text-align:left;color:var(--txd);font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--bdr);font-weight:600;}
+.tbl td{padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:middle;}
+.tbl tr:last-child td{border-bottom:none;}
+.tbl tr:hover td{background:rgba(255,255,255,.02);}
+.cbdg{background:rgba(45,122,79,.2);color:var(--grnl);border-radius:6px;padding:3px 8px;font-size:.72rem;font-weight:600;white-space:nowrap;}
+.pthumb{width:44px;height:44px;border-radius:8px;object-fit:cover;}
+.pemoji{width:44px;height:44px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;}
+
+/* FORM MODAL */
+.ovl{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:200;align-items:flex-start;justify-content:center;padding:2rem;overflow-y:auto;}
+.ovl.open{display:flex;}
+.fmd{background:var(--card);border:1px solid var(--bdr);border-radius:20px;padding:2rem;width:600px;max-width:95vw;position:relative;animation:fu .3s ease;margin:auto;}
+@keyframes fu{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.fmd h3{font-family:'Playfair Display',serif;font-size:1.4rem;margin-bottom:1.5rem;}
+.clsbtn{position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,.08);border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;color:var(--txm);font-size:1rem;display:flex;align-items:center;justify-content:center;}
+.clsbtn:hover{background:rgba(255,255,255,.15);color:var(--txt);}
+.fmd .fg{margin-bottom:1rem;}
+.fmd .fg label{display:block;font-size:.78rem;color:var(--txm);margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;}
+.fmd .fg input,.fmd .fg select,.fmd .fg textarea{width:100%;padding:10px 14px;background:var(--bg);border:1px solid var(--bdr);border-radius:8px;color:var(--txt);font-size:.9rem;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s;}
+.fmd .fg input:focus,.fmd .fg select:focus,.fmd .fg textarea:focus{border-color:var(--grn);}
+.fmd .fg textarea{height:80px;resize:vertical;}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.fsub{width:100%;background:var(--grn);color:#fff;border:none;padding:12px;border-radius:10px;font-size:.95rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;margin-top:.5rem;}
+.fsub:hover{background:var(--grnl);}
+
+/* IMG UPLOAD */
+.img-area{border:2px dashed var(--bdr);border-radius:12px;padding:1.5rem;text-align:center;cursor:pointer;transition:all .2s;position:relative;min-height:130px;display:flex;align-items:center;justify-content:center;}
+.img-area:hover{border-color:var(--grn);background:rgba(45,122,79,.05);}
+.img-area.hasimg{padding:.5rem;border-style:solid;border-color:var(--grn);}
+.img-area .ph-txt{color:var(--txd);pointer-events:none;}
+.img-area .ph-txt .ico{font-size:2rem;margin-bottom:.5rem;}
+.img-area .ph-txt p{font-size:.85rem;}
+.img-area .ph-txt small{font-size:.75rem;color:var(--txd);}
+#imgPrev{width:100%;max-height:200px;object-fit:contain;border-radius:8px;display:none;}
+
+/* QUERY CARDS */
+.qcard{background:var(--bg);border:1px solid var(--bdr);border-radius:14px;margin-bottom:1rem;overflow:hidden;}
+.qcard.unread{border-left:4px solid var(--gold);}
+.qhead{padding:1rem 1.2rem;display:flex;justify-content:space-between;align-items:flex-start;cursor:pointer;}
+.qhead:hover{background:rgba(255,255,255,.02);}
+.qnrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.qnm{font-weight:600;font-size:.95rem;}
+.qbz{color:var(--txm);font-size:.88rem;}
+.nbdg{background:var(--gold);color:#1a1a1a;font-size:.65rem;font-weight:700;padding:2px 8px;border-radius:100px;}
+.qbody{padding:0 1.2rem 1.2rem;display:none;}
+.qbody.open{display:block;}
+.qcgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.8rem;margin-bottom:1rem;}
+.qci{background:var(--card);border-radius:8px;padding:.8rem;}
+.qci .cil{font-size:.7rem;color:var(--txd);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;}
+.qci .civ{font-size:.88rem;font-weight:500;word-break:break-word;}
+.qmsg{background:var(--card);border-radius:10px;padding:1rem;margin-bottom:1rem;}
+.qmsg .ml{font-size:.7rem;color:var(--txd);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem;}
+.qmsg .mt{font-size:.9rem;line-height:1.7;color:var(--txm);}
+.qacts{display:flex;gap:.5rem;flex-wrap:wrap;}
+
+/* SEARCH */
+.si{background:var(--bg);border:1px solid var(--bdr);border-radius:8px;padding:8px 14px;color:var(--txt);font-size:.88rem;font-family:'DM Sans',sans-serif;outline:none;width:220px;transition:border-color .2s;}
+.si:focus{border-color:var(--grn);}
+
+/* PAGES */
+.prow{background:var(--bg);border:1px solid var(--bdr);border-radius:12px;padding:1rem 1.2rem;display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem;}
+.tog{width:44px;height:24px;background:var(--bdr);border-radius:100px;position:relative;cursor:pointer;transition:all .3s;flex-shrink:0;}
+.tog.on{background:var(--grn);}
+.tog::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;background:#fff;border-radius:50%;transition:all .3s;}
+.tog.on::after{transform:translateX(20px);}
+
+/* SETTINGS */
+.sgrd{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
+.ssec{background:var(--bg);border:1px solid var(--bdr);border-radius:14px;padding:1.5rem;}
+.ssec h4{font-size:.85rem;font-weight:600;color:var(--txm);text-transform:uppercase;letter-spacing:.1em;margin-bottom:1.2rem;}
+.sinp{width:100%;padding:10px 14px;background:var(--card);border:1px solid var(--bdr);border-radius:8px;color:var(--txt);font-size:.9rem;font-family:'DM Sans',sans-serif;outline:none;margin-bottom:.8rem;transition:border-color .2s;}
+.sinp:focus{border-color:var(--grn);}
+.slbl{display:block;font-size:.78rem;color:var(--txm);margin-bottom:4px;text-transform:uppercase;letter-spacing:.06em;}
+
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--bdr);border-radius:3px;}
+
+@media(max-width:900px){
+  .sb{transform:translateX(-260px);}.sb.open{transform:translateX(0);}
+  .mn{margin-left:0;}.sgrid{grid-template-columns:1fr 1fr;}.sgrd{grid-template-columns:1fr;}
+  .hbtn{display:flex !important;}
+}
+@media(max-width:600px){.sgrid{grid-template-columns:1fr;}.frow{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login">
+  <div class="lbox">
+    <div class="llogo">
+      <div class="ico">EJ</div>
+      <h1>Admin Portal</h1>
+      <p>Ess Jee Pharmaceuticals · Herbal Division</p>
+    </div>
+    <div class="fg">
+      <label>Username</label>
+      <input type="text" id="lu" placeholder="Enter username" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <div class="fg">
+      <label>Password</label>
+      <input type="password" id="lp" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <button class="btn-login" onclick="doLogin()">Login to Admin Panel</button>
+    <p class="lerr" id="lerr">❌ Incorrect username or password.</p>
+    <p class="lhint">Default: <strong>admin</strong> / <strong>essjee2025</strong></p>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="ap">
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sb" id="sb">
+      <div class="sblogo">
+        <div class="ico">EJ</div>
+        <div>
+          <div class="br">ESS JEE</div>
+          <div class="su">Admin Panel</div>
+        </div>
+      </div>
+      <nav class="sbnav">
+        <div class="sbsec">Main</div>
+        <div class="ni act" onclick="showSec('dash')"><span>📊</span> Dashboard</div>
+        <div class="ni" onclick="showSec('prod')"><span>🌿</span> Products</div>
+        <div class="ni" onclick="showSec('qry')">
+          <span>💬</span> Customer Queries
+          <span class="bdg" id="qBdg" style="display:none">0</span>
+        </div>
+        <div class="sbsec">Website</div>
+        <div class="ni" onclick="showSec('pgs')"><span>📄</span> Manage Pages</div>
+        <div class="ni" onclick="showSec('set')"><span>⚙️</span> Settings</div>
+        <div class="sbsec">Links</div>
+        <div class="ni" onclick="window.open('../index.html','_blank')"><span>🌐</span> View Website</div>
+      </nav>
+      <div class="sbfoot">
+        <div class="urow">
+          <div class="uav" id="uAv">A</div>
+          <div><div class="un" id="uNm">Admin</div><div class="ur">Administrator</div></div>
+          <button class="btn-lo" onclick="doLogout()">Logout</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="mn">
+
+      <!-- DASHBOARD -->
+      <div id="sec-dash">
+        <div class="topbar">
+          <div><h2>Dashboard</h2><p>Your site overview at a glance</p></div>
+          <div class="ta">
+            <button class="hbtn" onclick="document.getElementById('sb').classList.toggle('open')"><span></span><span></span><span></span></button>
+            <button class="btn btng" onclick="showSec('prod');setTimeout(openProdForm,100)">+ Add Product</button>
+          </div>
+        </div>
+        <div class="cnt">
+          <div class="sgrid">
+            <div class="sc"><div class="lb">Total Products</div><div class="vl" id="stP" style="color:var(--ok)">0</div><div style="font-size:.8rem;color:var(--txm);margin-top:.3rem">In catalogue</div></div>
+            <div class="sc"><div class="lb">Categories</div><div class="vl" id="stC" style="color:var(--gold)">0</div><div style="font-size:.8rem;color:var(--txm);margin-top:.3rem">Product types</div></div>
+            <div class="sc"><div class="lb">Total Queries</div><div class="vl" id="stQ" style="color:#6eb5f5">0</div><div style="font-size:.8rem;margin-top:.3rem" id="stU"></div></div>
+            <div class="sc"><div class="lb">Price List</div><div class="vl" style="color:var(--txm);font-size:1.3rem">Apr 2025</div><div style="font-size:.8rem;color:var(--txm);margin-top:.3rem">Active version</div></div>
+          </div>
+          <div class="pnl">
+            <div class="ph"><h3>📬 Recent Customer Queries</h3><button class="btnsm" onclick="showSec('qry')">View All →</button></div>
+            <div class="pb" id="dqry"><p style="color:var(--txd);text-align:center;padding:2rem">No queries yet. They appear here when customers submit the contact form.</p></div>
+          </div>
+          <div class="pnl">
+            <div class="ph"><h3>📦 Products by Category</h3><button class="btnsm" onclick="showSec('prod')">Manage →</button></div>
+            <div class="pb" id="dcats"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRODUCTS -->
+      <div id="sec-prod" style="display:none">
+        <div class="topbar">
+          <div><h2>Products</h2><p id="plbl">Manage your catalogue</p></div>
+          <div class="ta">
+            <input class="si" type="text" id="pSrch" placeholder="🔍 Search products..." oninput="renderProd()">
+            <select id="pCat" onchange="renderProd()" style="background:var(--bg);border:1px solid var(--bdr);border-radius:8px;padding:8px 12px;color:var(--txt);font-family:'DM Sans',sans-serif;font-size:.85rem;outline:none;cursor:pointer;"></select>
+            <button class="btn btng" onclick="openProdForm()">+ Add Product</button>
+          </div>
+        </div>
+        <div class="cnt">
+          <div class="pnl" style="margin-bottom:0">
+            <div style="overflow-x:auto">
+              <table class="tbl">
+                <thead><tr><th>Image</th><th>Product Name</th><th>Category</th><th>Pack</th><th>MRP ₹</th><th>PTR ₹</th><th>Actions</th></tr></thead>
+                <tbody id="pBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- QUERIES -->
+      <div id="sec-qry" style="display:none">
+        <div class="topbar">
+          <div><h2>Customer Queries</h2><p id="qlbl">All inquiries from website contact form</p></div>
+          <div class="ta">
+            <button class="btnsm" onclick="markAllRead()">✓ Mark All Read</button>
+            <button class="btnrd" onclick="clearAllQ()">🗑 Clear All</button>
+          </div>
+        </div>
+        <div class="cnt" id="qryCnt"><p style="color:var(--txd);text-align:center;padding:3rem">No queries yet.</p></div>
+      </div>
+
+      <!-- PAGES -->
+      <div id="sec-pgs" style="display:none">
+        <div class="topbar">
+          <div><h2>Manage Pages</h2><p>Control website page visibility</p></div>
+          <div class="ta"><button class="btn btng" onclick="openAddPage()">+ Add Custom Page</button></div>
+        </div>
+        <div class="cnt">
+          <div class="pnl"><div class="ph"><h3>Core Pages</h3></div><div class="pb" id="corePgs"></div></div>
+          <div class="pnl"><div class="ph"><h3>Custom Pages</h3></div><div class="pb" id="custPgs"><p style="color:var(--txd);font-size:.88rem">No custom pages yet.</p></div></div>
+        </div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div id="sec-set" style="display:none">
+        <div class="topbar"><div><h2>Settings</h2><p>Credentials & site configuration</p></div></div>
+        <div class="cnt">
+          <div class="sgrd">
+            <div class="ssec">
+              <h4>🔐 Change Login Credentials</h4>
+              <label class="slbl">New Username</label>
+              <input class="sinp" type="text" id="nU" placeholder="New username">
+              <label class="slbl">New Password</label>
+              <input class="sinp" type="password" id="nP" placeholder="New password">
+              <label class="slbl">Confirm Password</label>
+              <input class="sinp" type="password" id="cP" placeholder="Confirm password">
+              <button class="btn btng" style="width:100%;margin-top:.5rem" onclick="saveCreds()">Save Credentials</button>
+              <p id="cMsg" style="margin-top:.8rem;font-size:.85rem;display:none"></p>
+            </div>
+            <div class="ssec">
+              <h4>🏢 Site Information</h4>
+              <label class="slbl">Company Name</label>
+              <input class="sinp" type="text" id="siC" value="Ess Jee Pharmaceuticals">
+              <label class="slbl">Address</label>
+              <input class="sinp" type="text" id="siA" value="Near Plot No 371, MIE Part 1, Bahadurgarh 124507">
+              <label class="slbl">Phone Number</label>
+              <input class="sinp" type="text" id="siPh" placeholder="Enter phone number">
+              <label class="slbl">Email Address</label>
+              <input class="sinp" type="email" id="siEm" placeholder="Enter email">
+              <button class="btn btng" style="width:100%;margin-top:.5rem" onclick="saveSite()">Save Site Info</button>
+              <p id="sMsg" style="margin-top:.8rem;font-size:.85rem;display:none"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- PRODUCT FORM MODAL -->
+<div class="ovl" id="pModal">
+  <div class="fmd">
+    <button class="clsbtn" onclick="closeProdForm()">✕</button>
+    <h3 id="fmTtl">Add New Product</h3>
+
+    <div class="fg">
+      <label>Product Image (Optional)</label>
+      <div class="img-area" id="imgArea" onclick="document.getElementById('imgFile').click()">
+        <input type="file" id="imgFile" accept="image/*" style="display:none" onchange="handleImg(event)">
+        <img id="imgPrev" alt="preview" style="width:100%;max-height:200px;object-fit:contain;border-radius:8px;display:none;">
+        <div class="ph-txt" id="phTxt">
+          <div class="ico">📷</div>
+          <p>Click to upload product image</p>
+          <small>PNG, JPG, WEBP — max 5MB</small>
+        </div>
+      </div>
+      <button type="button" id="rmImg" onclick="removeImg()" style="display:none;margin-top:.5rem;background:none;border:1px solid var(--bdr);color:var(--red);padding:5px 14px;border-radius:6px;cursor:pointer;font-size:.8rem;font-family:'DM Sans',sans-serif;">✕ Remove Image</button>
+    </div>
+
+    <div class="frow">
+      <div class="fg"><label>Product Name *</label><input type="text" id="fN" placeholder="e.g. KESAR PAIN OIL"></div>
+      <div class="fg"><label>Category *</label>
+        <select id="fCt"><option>Syrup</option><option>Oil</option><option>Tonic</option><option>Ras</option><option>Juice</option><option>Capsule</option><option>Kit</option><option>Combo</option><option>Other</option></select>
+      </div>
+    </div>
+    <div class="fg"><label>Description / Contents *</label><textarea id="fDs" placeholder="Product benefits, ingredients, usage..."></textarea></div>
+    <div class="frow">
+      <div class="fg"><label>Pack Size *</label><input type="text" id="fPk" placeholder="e.g. 100ml, 30CAP, COMBO"></div>
+      <div class="fg"><label>Card Color</label><input type="color" id="fCl" value="#e8f5e9" style="height:42px;cursor:pointer;width:100%;padding:4px;"></div>
+    </div>
+    <div class="frow">
+      <div class="fg"><label>MRP ₹ *</label><input type="number" id="fMr" placeholder="0.00" step="0.5" min="0"></div>
+      <div class="fg"><label>PTR ₹ *</label><input type="number" id="fPt" placeholder="0.00" step="0.5" min="0"></div>
+    </div>
+    <button class="fsub" onclick="saveProd()">💾 Save Product</button>
+  </div>
+</div>
+
+<!-- ADD PAGE MODAL -->
+<div class="ovl" id="pgModal">
+  <div class="fmd" style="width:500px">
+    <button class="clsbtn" onclick="document.getElementById('pgModal').classList.remove('open')">✕</button>
+    <h3>Add Custom Page</h3>
+    <div class="fg"><label>Page Name *</label><input type="text" id="npN" placeholder="e.g. Blog, Gallery, Certificates"></div>
+    <div class="fg"><label>Page Description</label><input type="text" id="npD" placeholder="Brief description"></div>
+    <div class="fg"><label>Page Content</label><textarea id="npC" style="height:140px" placeholder="Write the content for this page..."></textarea></div>
+    <button class="fsub" onclick="addCustPage()">Create Page</button>
+  </div>
+</div>
+
+<script>
+// ── DATA ──
+const ICONS = {Syrup:'🧴',Oil:'💧',Tonic:'🌿',Ras:'🍃',Juice:'🥤',Capsule:'💊',Kit:'📦',Combo:'🎁',Other:'🌿'};
+const getP  = () => JSON.parse(localStorage.getItem('essjee_products')||'[]');
+const saveP = a  => localStorage.setItem('essjee_products',JSON.stringify(a));
+const getQ  = () => JSON.parse(localStorage.getItem('essjee_queries')||'[]');
+const saveQ = a  => localStorage.setItem('essjee_queries',JSON.stringify(a));
+const getCr = () => JSON.parse(localStorage.getItem('essjee_creds')||'{"user":"admin","pass":"essjee2025"}');
+const getSI = () => JSON.parse(localStorage.getItem('essjee_site')||'{}');
+const getCPs= () => JSON.parse(localStorage.getItem('essjee_cpages')||'[]');
+const getPS = () => JSON.parse(localStorage.getItem('essjee_pstates')||'{"home":true,"products":true,"about":true,"contact":true}');
+
+// ── AUTH ──
+function doLogin(){
+  const u=document.getElementById('lu').value.trim(),p=document.getElementById('lp').value,c=getCr();
+  if(u===c.user&&p===c.pass){
+    localStorage.setItem('essjee_in','1');
+    document.getElementById('login').style.display='none';
+    document.getElementById('ap').style.display='block';
+    document.getElementById('uAv').textContent=u[0].toUpperCase();
+    document.getElementById('uNm').textContent=u;
+    init();
+  } else {
+    document.getElementById('lerr').style.display='block';
+    document.getElementById('lp').value='';
+  }
+}
+function doLogout(){localStorage.removeItem('essjee_in');location.reload();}
+window.onload=()=>{
+  if(localStorage.getItem('essjee_in')==='1'){
+    const c=getCr();
+    document.getElementById('login').style.display='none';
+    document.getElementById('ap').style.display='block';
+    document.getElementById('uAv').textContent=c.user[0].toUpperCase();
+    document.getElementById('uNm').textContent=c.user;
+    init();
+  }
+};
+
+// ── NAV ──
+function showSec(s){
+  ['dash','prod','qry','pgs','set'].forEach(id=>document.getElementById('sec-'+id).style.display='none');
+  document.querySelectorAll('.ni').forEach(n=>n.classList.remove('act'));
+  document.getElementById('sec-'+s).style.display='block';
+  document.querySelectorAll('.ni').forEach(n=>{
+    const t=n.textContent.toLowerCase();
+    if((s==='dash'&&t.includes('dash'))||(s==='prod'&&t.includes('prod'))||(s==='qry'&&t.includes('quer'))||(s==='pgs'&&t.includes('page'))||(s==='set'&&t.includes('set')))n.classList.add('act');
+  });
+  if(s==='prod')renderProd();
+  if(s==='qry')renderQ();
+  if(s==='pgs')renderPgs();
+  if(s==='dash')updateDash();
+  document.getElementById('sb').classList.remove('open');
+}
+
+// ── IMAGE ──
+let curImg=null, editId=null;
+function handleImg(e){
+  const f=e.target.files[0]; if(!f)return;
+  if(f.size>5*1024*1024){alert('Max 5MB');return;}
+  const r=new FileReader();
+  r.onload=ev=>{
+    curImg=ev.target.result;
+    document.getElementById('imgPrev').src=curImg;
+    document.getElementById('imgPrev').style.display='block';
+    document.getElementById('phTxt').style.display='none';
+    document.getElementById('imgArea').classList.add('hasimg');
+    document.getElementById('rmImg').style.display='inline-block';
+  };
+  r.readAsDataURL(f);
+}
+function removeImg(){
+  curImg=null;
+  document.getElementById('imgPrev').src='';
+  document.getElementById('imgPrev').style.display='none';
+  document.getElementById('phTxt').style.display='block';
+  document.getElementById('imgArea').classList.remove('hasimg');
+  document.getElementById('rmImg').style.display='none';
+  document.getElementById('imgFile').value='';
+}
+
+// ── PRODUCTS ──
+function openProdForm(id){
+  editId=id||null; curImg=null; removeImg();
+  document.getElementById('fmTtl').textContent=id?'Edit Product':'Add New Product';
+  if(id){
+    const p=getP().find(x=>x.id===id);
+    if(p){
+      document.getElementById('fN').value=p.name;
+      document.getElementById('fCt').value=p.category;
+      document.getElementById('fDs').value=p.contents;
+      document.getElementById('fPk').value=p.pack;
+      document.getElementById('fMr').value=p.mrp;
+      document.getElementById('fPt').value=p.ptr;
+      document.getElementById('fCl').value=p.color||'#e8f5e9';
+      if(p.image){
+        curImg=p.image;
+        document.getElementById('imgPrev').src=p.image;
+        document.getElementById('imgPrev').style.display='block';
+        document.getElementById('phTxt').style.display='none';
+        document.getElementById('imgArea').classList.add('hasimg');
+        document.getElementById('rmImg').style.display='inline-block';
+      }
+    }
+  } else {
+    ['fN','fDs','fPk','fMr','fPt'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('fCt').value='Syrup';
+    document.getElementById('fCl').value='#e8f5e9';
+  }
+  document.getElementById('pModal').classList.add('open');
+}
+function closeProdForm(){document.getElementById('pModal').classList.remove('open');}
+
+function saveProd(){
+  const name=document.getElementById('fN').value.trim();
+  const cat =document.getElementById('fCt').value;
+  const desc=document.getElementById('fDs').value.trim();
+  const pack=document.getElementById('fPk').value.trim();
+  const mrp =parseFloat(document.getElementById('fMr').value);
+  const ptr =parseFloat(document.getElementById('fPt').value);
+  const color=document.getElementById('fCl').value;
+  if(!name||!desc||!pack||isNaN(mrp)||isNaN(ptr)){alert('Please fill all required fields.');return;}
+  let ps=getP();
+  if(editId){
+    const i=ps.findIndex(x=>x.id===editId);
+    if(i!==-1)ps[i]={...ps[i],name,category:cat,contents:desc,pack,mrp,ptr,color,image:curImg||ps[i].image||null};
+  } else {
+    const nid=ps.length?Math.max(...ps.map(p=>p.id))+1:1;
+    ps.push({id:nid,name,category:cat,contents:desc,pack,mrp,ptr,color,image:curImg||null});
+  }
+  saveP(ps); closeProdForm(); renderProd(); updateDash();
+}
+function delProd(id){
+  if(!confirm('Delete this product?'))return;
+  saveP(getP().filter(p=>p.id!==id)); renderProd(); updateDash();
+}
+function renderProd(){
+  const srch=(document.getElementById('pSrch')?.value||'').toLowerCase();
+  const catF=document.getElementById('pCat')?.value||'All';
+  const ps=getP();
+  const cats=['All',...new Set(ps.map(p=>p.category))];
+  const sel=document.getElementById('pCat');
+  const cur=sel.value;
+  sel.innerHTML=cats.map(c=>`<option value="${c}" ${c===cur?'selected':''}>${c}</option>`).join('');
+  const fil=ps.filter(p=>{
+    const mc=catF==='All'||p.category===catF;
+    const ms=!srch||p.name.toLowerCase().includes(srch)||(p.contents||'').toLowerCase().includes(srch);
+    return mc&&ms;
+  });
+  document.getElementById('plbl').textContent=`${fil.length} of ${ps.length} products`;
+  const tb=document.getElementById('pBody');
+  if(!fil.length){tb.innerHTML=`<tr><td colspan="7" style="text-align:center;padding:3rem;color:var(--txd)">No products found.</td></tr>`;return;}
+  tb.innerHTML=fil.map(p=>`
+    <tr>
+      <td>${p.image?`<img src="${p.image}" class="pthumb" alt="${p.name}" style="width:44px;height:44px;border-radius:8px;object-fit:cover;">`:`<div class="pemoji" style="background:${p.color||'#e8f5e9'}">${ICONS[p.category]||'🌿'}</div>`}</td>
+      <td><div style="font-weight:500">${p.name}</div><div style="font-size:.75rem;color:var(--txd);margin-top:2px;max-width:200px">${(p.contents||'').substring(0,55)}${(p.contents||'').length>55?'...':''}</div></td>
+      <td><span class="cbdg">${ICONS[p.category]||'🌿'} ${p.category}</span></td>
+      <td style="color:var(--txm)">${p.pack}</td>
+      <td style="font-weight:600">₹${(+p.mrp).toFixed(2)}</td>
+      <td style="font-weight:600;color:var(--ok)">₹${(+p.ptr).toFixed(2)}</td>
+      <td><div style="display:flex;gap:6px"><button class="btnsm" onclick="openProdForm(${p.id})">✏️ Edit</button><button class="btnrd" onclick="delProd(${p.id})">🗑</button></div></td>
+    </tr>
+  `).join('');
+}
+
+// ── QUERIES ──
+function renderQ(){
+  const qs=getQ().slice().reverse();
+  const unread=qs.filter(q=>!q.read).length;
+  document.getElementById('qlbl').textContent=`${qs.length} total · ${unread} unread`;
+  const el=document.getElementById('qryCnt');
+  if(!qs.length){
+    el.innerHTML=`<div class="pnl"><div class="pb" style="text-align:center;padding:3rem;color:var(--txd)">No customer queries received yet.<br><br>When customers submit the contact form on your website, their details will appear here.</div></div>`;
+    return;
+  }
+  el.innerHTML=qs.map(q=>`
+    <div class="qcard ${!q.read?'unread':''}" id="qc-${q.id}">
+      <div class="qhead" onclick="toggleQ(${q.id})">
+        <div class="qnrow">
+          <span class="qnm">👤 ${q.name}</span>
+          <span class="qbz">— ${q.business||'N/A'}</span>
+          ${!q.read?'<span class="nbdg">NEW</span>':''}
+        </div>
+        <div style="display:flex;align-items:center;gap:.8rem;flex-shrink:0">
+          <span style="color:var(--txd);font-size:.8rem">📅 ${q.date}</span>
+          <span style="color:var(--txd)" id="qa-${q.id}">▼</span>
+        </div>
+      </div>
+      <div class="qbody" id="qb-${q.id}">
+        <div class="qcgrid">
+          <div class="qci"><div class="cil">📞 Phone</div><div class="civ"><a href="tel:${q.phone}" style="color:var(--ok);text-decoration:none;font-weight:600">${q.phone}</a></div></div>
+          ${q.email?`<div class="qci"><div class="cil">📧 Email</div><div class="civ"><a href="mailto:${q.email}" style="color:var(--ok);text-decoration:none;font-weight:600">${q.email}</a></div></div>`:''}
+          ${q.city?`<div class="qci"><div class="cil">📍 City / State</div><div class="civ">${q.city}</div></div>`:''}
+          ${q.type&&q.type!=='Select business type'?`<div class="qci"><div class="cil">🏪 Business Type</div><div class="civ">${q.type}</div></div>`:''}
+          <div class="qci"><div class="cil">📅 Date Received</div><div class="civ">${q.date}</div></div>
+          <div class="qci"><div class="cil">✅ Status</div><div class="civ" style="color:${q.read?'var(--ok)':'var(--gold)'}">${q.read?'Read':'Unread'}</div></div>
+        </div>
+        <div class="qmsg">
+          <div class="ml">💬 Message from Customer</div>
+          <div class="mt">${q.message||'(No message provided)'}</div>
+        </div>
+        <div class="qacts">
+          ${q.phone?`<a href="tel:${q.phone}" class="btnsm" style="text-decoration:none;display:inline-flex;align-items:center;gap:4px">📞 Call Now</a>`:''}
+          ${q.phone?`<a href="https://wa.me/91${q.phone.replace(/\D/g,'')}" target="_blank" class="btnsm" style="text-decoration:none;display:inline-flex;align-items:center;gap:4px">💬 WhatsApp</a>`:''}
+          ${q.email?`<a href="mailto:${q.email}?subject=Re: Your inquiry at Ess Jee Pharmaceuticals" class="btnsm" style="text-decoration:none;display:inline-flex;align-items:center;gap:4px">📧 Reply by Email</a>`:''}
+          ${!q.read?`<button class="btnsm" onclick="markRead(${q.id})">✓ Mark Read</button>`:`<span style="color:var(--ok);font-size:.82rem;padding:6px">✓ Read</span>`}
+          <button class="btnrd" onclick="delQ(${q.id})">🗑 Delete</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+  updateBdg();
+}
+
+function toggleQ(id){
+  const b=document.getElementById('qb-'+id),a=document.getElementById('qa-'+id);
+  const open=b.classList.contains('open');
+  b.classList.toggle('open'); a.textContent=open?'▼':'▲';
+  if(!open)markRead(id,true);
+}
+function markRead(id,silent){
+  const qs=getQ(),q=qs.find(x=>x.id===id);
+  if(q&&!q.read){q.read=true;saveQ(qs);}
+  if(!silent)renderQ(); else updateBdg();
+  const card=document.getElementById('qc-'+id);
+  if(card){card.classList.remove('unread');const b=card.querySelector('.nbdg');if(b)b.remove();}
+}
+function markAllRead(){saveQ(getQ().map(q=>({...q,read:true})));renderQ();}
+function delQ(id){if(!confirm('Delete this query?'))return;saveQ(getQ().filter(q=>q.id!==id));renderQ();}
+function clearAllQ(){if(!confirm('Delete ALL queries? Cannot be undone.'))return;localStorage.removeItem('essjee_queries');renderQ();}
+function updateBdg(){
+  const u=getQ().filter(q=>!q.read).length;
+  const b=document.getElementById('qBdg');
+  if(u>0){b.style.display='inline';b.textContent=u;}else{b.style.display='none';}
+}
+
+// ── PAGES ──
+function renderPgs(){
+  const st=getPS();
+  const core=[{key:'home',name:'Home Page',icon:'🏠'},{key:'products',name:'Products Page',icon:'🌿'},{key:'about',name:'About Us Page',icon:'ℹ️'},{key:'contact',name:'Contact & Queries',icon:'📞'}];
+  document.getElementById('corePgs').innerHTML=core.map(p=>`
+    <div class="prow">
+      <div><div style="font-weight:600">${p.icon} ${p.name}</div><div style="font-size:.78rem;color:var(--txd);margin-top:2px">Core page</div></div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="font-size:.8rem;color:var(--txd)">${st[p.key]!==false?'Visible':'Hidden'}</span>
+        <div class="tog ${st[p.key]!==false?'on':''}" onclick="togPg('${p.key}')"></div>
+      </div>
+    </div>
+  `).join('');
+  const cps=getCPs();
+  const cpEl=document.getElementById('custPgs');
+  if(!cps.length){cpEl.innerHTML=`<p style="color:var(--txd);font-size:.88rem">No custom pages. Click "+ Add Custom Page" to create one.</p>`;return;}
+  cpEl.innerHTML=cps.map((p,i)=>`
+    <div class="prow">
+      <div><div style="font-weight:600">📄 ${p.name}</div><div style="font-size:.78rem;color:var(--txd);margin-top:2px">${p.desc||'Custom page'}</div></div>
+      <div style="display:flex;gap:8px">
+        <button class="btnsm" onclick="editCP(${i})">✏️ Edit</button>
+        <button class="btnrd" onclick="delCP(${i})">Delete</button>
+      </div>
+    </div>
+  `).join('');
+}
+function togPg(k){const st=getPS();st[k]=st[k]===false;localStorage.setItem('essjee_pstates',JSON.stringify(st));renderPgs();}
+function openAddPage(){document.getElementById('pgModal').classList.add('open');}
+function addCustPage(){
+  const n=document.getElementById('npN').value.trim(),d=document.getElementById('npD').value.trim(),c=document.getElementById('npC').value.trim();
+  if(!n){alert('Page name required.');return;}
+  const cps=getCPs();cps.push({name:n,desc:d,content:c});
+  localStorage.setItem('essjee_cpages',JSON.stringify(cps));
+  document.getElementById('pgModal').classList.remove('open');
+  ['npN','npD','npC'].forEach(id=>document.getElementById(id).value='');
+  renderPgs();
+}
+function delCP(i){if(!confirm('Delete this page?'))return;const cps=getCPs();cps.splice(i,1);localStorage.setItem('essjee_cpages',JSON.stringify(cps));renderPgs();}
+function editCP(i){
+  const cps=getCPs(),p=cps[i];
+  const n=prompt('Page Name:',p.name);if(n===null)return;
+  const c=prompt('Content:',p.content);if(c===null)return;
+  cps[i]={...cps[i],name:n,content:c};
+  localStorage.setItem('essjee_cpages',JSON.stringify(cps));renderPgs();
+}
+
+// ── SETTINGS ──
+function saveCreds(){
+  const u=document.getElementById('nU').value.trim(),p=document.getElementById('nP').value,c=document.getElementById('cP').value;
+  const msg=document.getElementById('cMsg');
+  if(!u||!p){msg.style.display='block';msg.style.color='var(--red)';msg.textContent='❌ Fill all fields.';return;}
+  if(p!==c){msg.style.display='block';msg.style.color='var(--red)';msg.textContent='❌ Passwords do not match.';return;}
+  localStorage.setItem('essjee_creds',JSON.stringify({user:u,pass:p}));
+  msg.style.display='block';msg.style.color='var(--ok)';msg.textContent='✅ Credentials updated! Note your new login.';
+  document.getElementById('uAv').textContent=u[0].toUpperCase();
+  document.getElementById('uNm').textContent=u;
+}
+function saveSite(){
+  localStorage.setItem('essjee_site',JSON.stringify({company:document.getElementById('siC').value,address:document.getElementById('siA').value,phone:document.getElementById('siPh').value,email:document.getElementById('siEm').value}));
+  const m=document.getElementById('sMsg');m.style.display='block';m.style.color='var(--ok)';m.textContent='✅ Saved!';setTimeout(()=>m.style.display='none',3000);
+}
+
+// ── DASHBOARD ──
+function updateDash(){
+  const ps=getP(),qs=getQ(),u=qs.filter(q=>!q.read).length;
+  document.getElementById('stP').textContent=ps.length;
+  document.getElementById('stC').textContent=new Set(ps.map(p=>p.category)).size;
+  document.getElementById('stQ').textContent=qs.length;
+  document.getElementById('stU').innerHTML=`<span style="color:${u?'var(--gold)':'var(--txm)'}">${u} unread</span>`;
+  
+  // Recent queries on dash
+  const rec=qs.slice(-5).reverse();
+  const dq=document.getElementById('dqry');
+  dq.innerHTML=rec.length?rec.map(q=>`
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;padding:.8rem 0;border-bottom:1px solid var(--bdr)">
+      <div>
+        <span style="font-weight:600">${q.name}</span> <span style="color:var(--txm);font-size:.88rem">— ${q.business||''}</span>
+        ${!q.read?'<span class="nbdg" style="margin-left:8px">NEW</span>':''}
+        <div style="font-size:.8rem;color:var(--txd);margin-top:4px">
+          📞 <strong style="color:var(--ok)">${q.phone}</strong>
+          ${q.email?` · 📧 ${q.email}`:''}
+          ${q.city?` · 📍 ${q.city}`:''}
+        </div>
+        <div style="font-size:.8rem;color:var(--txd);margin-top:2px;font-style:italic">"${(q.message||'').substring(0,80)}${(q.message||'').length>80?'...':''}"</div>
+      </div>
+      <button class="btnsm" style="flex-shrink:0;margin-left:1rem" onclick="showSec('qry')">Open →</button>
+    </div>
+  `).join(''):`<p style="color:var(--txd);text-align:center;padding:2rem">No queries yet.</p>`;
+
+  // Cat breakdown
+  const cats={};ps.forEach(p=>{cats[p.category]=(cats[p.category]||0)+1;});
+  const tot=ps.length||1;
+  document.getElementById('dcats').innerHTML=Object.entries(cats).map(([c,n])=>`
+    <div style="display:flex;align-items:center;gap:1rem;padding:.6rem 0;border-bottom:1px solid var(--bdr)">
+      <span style="width:130px;font-weight:500">${ICONS[c]||'🌿'} ${c}</span>
+      <div style="flex:1;background:var(--bg);border-radius:100px;height:8px;overflow:hidden"><div style="width:${(n/tot*100).toFixed(0)}%;background:var(--grn);height:100%;border-radius:100px"></div></div>
+      <span style="color:var(--txm);font-size:.85rem;width:55px;text-align:right">${n} items</span>
+    </div>
+  `).join('');
+  updateBdg();
+}
+
+// ── INIT ──
+function init(){
+  updateDash(); updateBdg();
+  const si=getSI();
+  if(si.company)document.getElementById('siC').value=si.company;
+  if(si.address)document.getElementById('siA').value=si.address;
+  if(si.phone)document.getElementById('siPh').value=si.phone;
+  if(si.email)document.getElementById('siEm').value=si.email;
+  setInterval(()=>{updateBdg();const el=document.getElementById('stU');if(el){const u=getQ().filter(q=>!q.read).length;document.getElementById('stQ').textContent=getQ().length;el.innerHTML=`<span style="color:${u?'var(--gold)':'var(--txm)'}">${u} unread</span>`;}},5000);
+}
+
+// Close modals on backdrop click
+document.getElementById('pModal').addEventListener('click',e=>{if(e.target===document.getElementById('pModal'))closeProdForm();});
+document.getElementById('pgModal').addEventListener('click',e=>{if(e.target===document.getElementById('pgModal'))document.getElementById('pgModal').classList.remove('open');});
+</script>
+</body>
+</html>

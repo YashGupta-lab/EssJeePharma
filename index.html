@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ess Jee Pharmaceuticals – Herbal Division</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a class="nav-logo" href="#" onclick="showPage('home')">
+    <div style="width:44px;height:44px;background:var(--gold);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;font-weight:900;color:var(--green-dark);font-family:'Playfair Display',serif;">EJ</div>
+    <div class="nav-logo-text">
+      <div class="brand">ESS JEE</div>
+      <div class="tagline">Pharmaceuticals · Herbal</div>
+    </div>
+  </a>
+  <div class="nav-links" id="navLinks">
+    <a href="#" onclick="showPage('home')" id="nav-home" class="active">Home</a>
+    <a href="#" onclick="showPage('products')" id="nav-products">Products</a>
+    <a href="#" onclick="showPage('about')" id="nav-about">About Us</a>
+    <a href="#" onclick="showPage('contact')" id="nav-contact">Contact</a>
+    <a href="#" class="btn-quote" onclick="showPage('contact')">Send Inquiry</a>
+  </div>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HOME PAGE -->
+<div id="home-page">
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">🌿 Ayurvedic &amp; Herbal Products</div>
+      <h1>Healing Through <span>Nature's</span> Wisdom</h1>
+      <p>Ess Jee Pharmaceuticals brings you a complete range of premium herbal formulations. Trusted by pharmacies and distributors across India for quality, efficacy, and value.</p>
+      <div class="hero-btns">
+        <a href="#" class="btn-primary" onclick="showPage('products')">Browse Products</a>
+        <a href="#" class="btn-outline" onclick="showPage('contact')">Request Price List</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><div class="num">60+</div><div class="label">Products</div></div>
+        <div class="stat"><div class="num">B2B</div><div class="label">Wholesale</div></div>
+        <div class="stat"><div class="num">100%</div><div class="label">Herbal</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE US -->
+  <section style="padding:90px 0;background:white;">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Why Choose Us</span>
+        <h2>Trusted by Distributors &amp; Pharmacies</h2>
+        <p>We offer the finest Ayurvedic formulations with competitive B2B pricing and reliable supply chain.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2rem;">
+        <div class="value-card">
+          <div class="icon">🌿</div>
+          <h3>100% Herbal</h3>
+          <p>All products are made from natural, Ayurvedic ingredients with no harmful chemicals.</p>
+        </div>
+        <div class="value-card">
+          <div class="icon">💰</div>
+          <h3>Best PTR</h3>
+          <p>Competitive trade pricing that allows healthy margins for our distribution partners.</p>
+        </div>
+        <div class="value-card">
+          <div class="icon">🚚</div>
+          <h3>Pan India Supply</h3>
+          <p>Reliable and timely delivery across India for all your bulk requirements.</p>
+        </div>
+        <div class="value-card">
+          <div class="icon">✅</div>
+          <h3>Quality Assured</h3>
+          <p>Each product undergoes rigorous quality checks before reaching your shelves.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED PRODUCTS TEASER -->
+  <section style="padding:90px 0;background:var(--off-white);">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Our Range</span>
+        <h2>Popular Product Categories</h2>
+        <p>From cough syrups to liver tonics, pain oils to immunity boosters — we have it all.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1.5rem;margin-bottom:3rem;">
+        <div onclick="filterAndShow('Syrup')" style="cursor:pointer;background:white;border-radius:16px;padding:2rem;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.07);transition:all 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+          <div style="font-size:2.5rem;margin-bottom:0.8rem;">🧴</div>
+          <div style="font-weight:600;color:var(--green-dark);">Syrups</div>
+          <div style="font-size:0.8rem;color:var(--text-light);margin-top:4px;">40+ Products</div>
+        </div>
+        <div onclick="filterAndShow('Oil')" style="cursor:pointer;background:white;border-radius:16px;padding:2rem;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.07);transition:all 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+          <div style="font-size:2.5rem;margin-bottom:0.8rem;">💧</div>
+          <div style="font-weight:600;color:var(--green-dark);">Oils</div>
+          <div style="font-size:0.8rem;color:var(--text-light);margin-top:4px;">3 Products</div>
+        </div>
+        <div onclick="filterAndShow('Juice')" style="cursor:pointer;background:white;border-radius:16px;padding:2rem;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.07);transition:all 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+          <div style="font-size:2.5rem;margin-bottom:0.8rem;">🥤</div>
+          <div style="font-weight:600;color:var(--green-dark);">Juices</div>
+          <div style="font-size:0.8rem;color:var(--text-light);margin-top:4px;">3 Products</div>
+        </div>
+        <div onclick="filterAndShow('Capsule')" style="cursor:pointer;background:white;border-radius:16px;padding:2rem;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.07);transition:all 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+          <div style="font-size:2.5rem;margin-bottom:0.8rem;">💊</div>
+          <div style="font-weight:600;color:var(--green-dark);">Capsules</div>
+          <div style="font-size:0.8rem;color:var(--text-light);margin-top:4px;">2 Products</div>
+        </div>
+        <div onclick="filterAndShow('Kit')" style="cursor:pointer;background:white;border-radius:16px;padding:2rem;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.07);transition:all 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+          <div style="font-size:2.5rem;margin-bottom:0.8rem;">📦</div>
+          <div style="font-weight:600;color:var(--green-dark);">Kits &amp; Combos</div>
+          <div style="font-size:0.8rem;color:var(--text-light);margin-top:4px;">5 Products</div>
+        </div>
+        <div onclick="filterAndShow('Ras')" style="cursor:pointer;background:white;border-radius:16px;padding:2rem;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.07);transition:all 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+          <div style="font-size:2.5rem;margin-bottom:0.8rem;">🍃</div>
+          <div style="font-weight:600;color:var(--green-dark);">Ras</div>
+          <div style="font-size:0.8rem;color:var(--text-light);margin-top:4px;">7 Products</div>
+        </div>
+      </div>
+      <div style="text-align:center;">
+        <a href="#" class="btn-primary" onclick="showPage('products')">View All 60 Products →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="background:var(--green-dark);padding:80px 2rem;text-align:center;">
+    <div class="hero-badge" style="background:rgba(201,168,76,0.2);">Ready to Partner?</div>
+    <h2 style="font-family:'Playfair Display',serif;color:white;font-size:2.5rem;margin:1rem 0;">Become a Distributor Today</h2>
+    <p style="color:rgba(255,255,255,0.8);max-width:500px;margin:0 auto 2rem;line-height:1.7;">Join our growing network of pharmacy and wholesale partners. Get best trade prices and dedicated support.</p>
+    <a href="#" class="btn-primary" onclick="showPage('contact')">Get in Touch</a>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo-text">ESS JEE PHARMACEUTICALS</div>
+          <div class="sub">Herbal Division</div>
+          <p>Premium Ayurvedic &amp; Herbal formulations crafted with traditional wisdom and modern quality standards.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <a onclick="showPage('home')">Home</a>
+          <a onclick="showPage('products')">Products</a>
+          <a onclick="showPage('about')">About Us</a>
+          <a onclick="showPage('contact')">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a>Near Plot No 371, MIE Part 1</a>
+          <a>Bahadurgarh – 124507</a>
+          <a>Haryana, India</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 Ess Jee Pharmaceuticals. All rights reserved.</span>
+        <span style="color:var(--text-light);font-size:0.8rem;">Retail Price List effective from 1st April 2025</span>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- PRODUCTS PAGE -->
+<div id="products-page" class="page-section" style="padding-top:100px;background:var(--off-white);">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Our Range</span>
+      <h2>Product Catalogue</h2>
+      <p>Complete B2B product listing with MRP and PTR pricing. Effective 1st April 2025.</p>
+    </div>
+    <div class="search-bar">
+      <input type="text" id="productSearch" placeholder="Search products..." oninput="renderProducts()">
+    </div>
+    <div class="filters" id="filterBtns"></div>
+    <div class="products-grid" id="productsGrid"></div>
+  </div>
+  <!-- Footer -->
+  <div style="margin-top:80px;background:var(--green-dark);padding:40px 0;">
+    <div class="container" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
+      <span style="color:rgba(255,255,255,0.8);font-size:0.9rem;">© 2025 Ess Jee Pharmaceuticals</span>
+      <span style="color:var(--gold-light);font-size:0.8rem;">All prices in INR (₹) · B2B Trade Pricing</span>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT PAGE -->
+<div id="about-page" class="page-section">
+  <div class="about-hero">
+    <h1>About Ess Jee Pharmaceuticals</h1>
+    <p>Rooted in Ayurvedic tradition, committed to modern quality standards.</p>
+  </div>
+  <div class="about-content">
+    <div class="container">
+      <div class="about-grid">
+        <div style="background:linear-gradient(135deg,var(--green-dark),var(--green-mid));border-radius:20px;height:380px;display:flex;align-items:center;justify-content:center;font-size:6rem;">🌿</div>
+        <div class="about-text">
+          <span class="section-label">Our Story</span>
+          <h2>Healing India, Naturally</h2>
+          <p>Ess Jee Pharmaceuticals is a dedicated Herbal Division focused on bringing the best of Ayurvedic science to modern healthcare. We believe in the power of nature to heal, and our products are a testament to that belief.</p>
+          <p>Based in Bahadurgarh, Haryana, we serve pharmacies, distributors, and healthcare providers across India with a growing portfolio of over 60 carefully formulated herbal products.</p>
+          <p>Our formulations cover a wide spectrum — from liver tonics and cough syrups to joint pain oils, digestive aids, blood purifiers, and immunity boosters — all made with premium quality herbs.</p>
+        </div>
+      </div>
+      <div class="about-grid" style="margin-bottom:0;">
+        <div class="about-text">
+          <span class="section-label">Our Mission</span>
+          <h2>Quality You Can Trust</h2>
+          <p>We are committed to producing herbal medicines that are safe, effective, and accessible. Every product in our range undergoes strict quality control to ensure consistency and potency.</p>
+          <p>Our B2B pricing model ensures that our trade partners — pharmacies, distributors, and stockists — can maintain healthy margins while offering patients genuinely good herbal alternatives.</p>
+        </div>
+        <div style="background:linear-gradient(135deg,var(--gold),#8a6910);border-radius:20px;height:380px;display:flex;align-items:center;justify-content:center;font-size:6rem;">⚗️</div>
+      </div>
+      <div class="section-header" style="margin-top:5rem;">
+        <span class="section-label">Our Values</span>
+        <h2>What Drives Us</h2>
+      </div>
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="icon">🌱</div>
+          <h3>Natural Ingredients</h3>
+          <p>We source the finest herbs and botanicals to create formulations that are gentle yet powerful.</p>
+        </div>
+        <div class="value-card">
+          <div class="icon">🤝</div>
+          <h3>Partner First</h3>
+          <p>Our distributors and pharmacies are our partners. We work hard to ensure their success.</p>
+        </div>
+        <div class="value-card">
+          <div class="icon">📋</div>
+          <h3>Transparency</h3>
+          <p>Clear pricing, clear ingredients, and clear communication — always.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo-text">ESS JEE PHARMACEUTICALS</div>
+          <div class="sub">Herbal Division</div>
+          <p>Premium Ayurvedic &amp; Herbal formulations crafted with traditional wisdom and modern quality standards.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <a onclick="showPage('home')">Home</a>
+          <a onclick="showPage('products')">Products</a>
+          <a onclick="showPage('about')">About Us</a>
+          <a onclick="showPage('contact')">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Address</h4>
+          <a>Near Plot No 371, MIE Part 1</a>
+          <a>Bahadurgarh – 124507</a>
+          <a>Haryana, India</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 Ess Jee Pharmaceuticals. All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- CONTACT PAGE -->
+<div id="contact-page" class="page-section">
+  <div class="contact-hero">
+    <h1>Get In Touch</h1>
+    <p>Send us a query, request a quote, or enquire about becoming a distributor.</p>
+  </div>
+  <div class="contact-content">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h3>Contact Information</h3>
+          <div class="info-item">
+            <div class="info-icon">📍</div>
+            <div>
+              <h4>Address</h4>
+              <p>Near Plot No 371, MIE Part 1<br>Bahadurgarh – 124507<br>Haryana, India</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">📞</div>
+            <div>
+              <h4>Phone / WhatsApp</h4>
+              <p>Contact via inquiry form</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">🕐</div>
+            <div>
+              <h4>Business Hours</h4>
+              <p>Mon – Sat: 9:00 AM – 6:00 PM<br>Sunday: Closed</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">🏭</div>
+            <div>
+              <h4>Business Type</h4>
+              <p>B2B Wholesale · Distributors<br>Pharmacies · Stockists</p>
+            </div>
+          </div>
+          <div style="background:var(--green-dark);border-radius:16px;padding:2rem;margin-top:2rem;color:white;">
+            <h4 style="color:var(--gold-light);font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1rem;">Price List 2025</h4>
+            <p style="font-size:0.9rem;color:rgba(255,255,255,0.8);line-height:1.6;">Our retail price list is effective from 1st April 2025. Contact us for bulk pricing and distributor terms.</p>
+          </div>
+        </div>
+        <div class="query-form">
+          <h3>Send Us a Query</h3>
+          <p>Fill in the form and our team will get back to you within 24 hours.</p>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Full Name *</label>
+              <input type="text" id="fname" placeholder="Your name">
+            </div>
+            <div class="form-group">
+              <label>Business Name *</label>
+              <input type="text" id="bname" placeholder="Pharmacy / Company name">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Phone Number *</label>
+              <input type="tel" id="phone" placeholder="+91 XXXXX XXXXX">
+            </div>
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" id="email" placeholder="your@email.com">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Business Type</label>
+            <select id="btype">
+              <option>Select business type</option>
+              <option>Pharmacy / Medical Store</option>
+              <option>Wholesale Distributor</option>
+              <option>Stockist</option>
+              <option>Super Stockist</option>
+              <option>Hospital / Clinic</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>City / State</label>
+            <input type="text" id="city" placeholder="Your city and state">
+          </div>
+          <div class="form-group">
+            <label>Your Query / Message *</label>
+            <textarea id="message" placeholder="Tell us what products you're interested in, or ask any question..."></textarea>
+          </div>
+          <button class="btn-submit" onclick="submitQuery()">Send Query →</button>
+          <div class="form-success" id="formSuccess">
+            ✅ Thank you! Your query has been received. We'll contact you within 24 hours.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo-text">ESS JEE PHARMACEUTICALS</div>
+          <div class="sub">Herbal Division</div>
+          <p>Premium Ayurvedic &amp; Herbal formulations crafted with traditional wisdom and modern quality standards.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <a onclick="showPage('home')">Home</a>
+          <a onclick="showPage('products')">Products</a>
+          <a onclick="showPage('about')">About Us</a>
+          <a onclick="showPage('contact')">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Address</h4>
+          <a>Near Plot No 371, MIE Part 1</a>
+          <a>Bahadurgarh – 124507</a>
+          <a>Haryana, India</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 Ess Jee Pharmaceuticals. All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- PRODUCT MODAL -->
+<div class="modal-overlay" id="productModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-product-icon" id="modal-icon"></div>
+    <div class="modal-cat" id="modal-cat"></div>
+    <h2 id="modal-name"></h2>
+    <p class="modal-desc" id="modal-desc"></p>
+    <div class="modal-prices">
+      <div class="price-item">
+        <div class="label">Pack Size</div>
+        <div class="amount" id="modal-pack" style="font-size:1.4rem;"></div>
+      </div>
+      <div class="price-item">
+        <div class="label">MRP</div>
+        <div class="amount" id="modal-mrp"></div>
+        <div class="sub">Max Retail Price</div>
+      </div>
+      <div class="price-item">
+        <div class="label">PTR</div>
+        <div class="amount" id="modal-ptr" style="color:var(--green-mid);"></div>
+        <div class="sub">Price to Retailer</div>
+      </div>
+    </div>
+    <button class="btn-inquiry" onclick="closeModal();showPage('contact')">Send Inquiry for This Product</button>
+  </div>
+</div>
+
+<script src="js/products.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

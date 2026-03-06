@@ -3,275 +3,355 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ess Jee Pharmaceuticals – Herbal Division</title>
-<link rel="stylesheet" href="css/style.css">
+<title id="pageTitle">Ess Jee Pharmaceuticals – Herbal Division</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green-dark:#1a4a2e; --green-mid:#2d7a4f; --green-light:#4caf50;
+  --gold:#c9a84c; --gold-light:#f5d98b; --cream:#fdfaf4; --off:#f5f0e8;
+  --text:#1a1a1a; --text-m:#444; --text-l:#888; --white:#fff;
+  --shadow:0 4px 24px rgba(0,0,0,.10); --shadow-lg:0 12px 48px rgba(0,0,0,.15);
+  --radius:14px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden;}
+a{text-decoration:none;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(26,74,46,.97);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:68px;box-shadow:0 2px 20px rgba(0,0,0,.2);}
+.nav-logo{display:flex;align-items:center;gap:12px;cursor:pointer;}
+.nav-logo .logo-mark{width:42px;height:42px;background:var(--gold);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;color:var(--green-dark);}
+.nav-logo .logo-text .brand{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;color:#fff;letter-spacing:.03em;}
+.nav-logo .logo-text .tagline{font-size:.62rem;color:var(--gold-light);letter-spacing:.14em;text-transform:uppercase;}
+.nav-links{display:flex;gap:.2rem;align-items:center;}
+.nav-links a{color:rgba(255,255,255,.85);font-size:.88rem;font-weight:500;padding:8px 15px;border-radius:8px;transition:all .2s;cursor:pointer;display:inline-block;}
+.nav-links a:hover,.nav-links a.active{color:#fff;background:rgba(255,255,255,.12);}
+.nav-links .nav-cta{background:var(--gold);color:var(--green-dark)!important;font-weight:700;margin-left:8px;}
+.nav-links .nav-cta:hover{background:var(--gold-light);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;background:none;border:none;}
+.hamburger span{display:block;width:24px;height:2px;background:#fff;border-radius:2px;transition:all .3s;}
+
+/* PAGES */
+.page{display:none;min-height:100vh;}
+.page.active{display:block;}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;text-align:center;padding:120px 2rem 60px;}
+.hero-bg{position:absolute;inset:0;background:var(--hero-bg,linear-gradient(135deg,#0d3320 0%,#1a4a2e 40%,#2d7a4f 100%));}
+.hero-pattern{position:absolute;inset:0;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");}
+.hero-content{position:relative;z-index:1;max-width:820px;}
+.hero-badge{display:inline-block;background:rgba(201,168,76,.18);border:1px solid var(--gold);color:var(--gold-light);font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;padding:6px 20px;border-radius:100px;margin-bottom:1.5rem;animation:fadeUp .6s ease both;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,6vw,4.5rem);color:#fff;font-weight:900;line-height:1.1;margin-bottom:1.2rem;animation:fadeUp .6s .1s ease both;}
+.hero h1 em,.hero h1 span{color:var(--gold);font-style:normal;}
+.hero p{font-size:1.05rem;color:rgba(255,255,255,.82);line-height:1.7;max-width:620px;margin:0 auto 2.5rem;animation:fadeUp .6s .2s ease both;}
+.hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;animation:fadeUp .6s .3s ease both;}
+.btn-primary{background:var(--gold);color:var(--green-dark);font-weight:700;padding:13px 30px;border-radius:9px;font-size:.94rem;transition:all .2s;display:inline-block;cursor:pointer;}
+.btn-primary:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,168,76,.4);}
+.btn-outline{border:2px solid rgba(255,255,255,.4);color:#fff;padding:13px 30px;border-radius:9px;font-size:.94rem;transition:all .2s;display:inline-block;cursor:pointer;}
+.btn-outline:hover{border-color:#fff;background:rgba(255,255,255,.1);}
+.hero-stats{display:flex;gap:3rem;justify-content:center;margin-top:4rem;animation:fadeUp .6s .4s ease both;}
+.stat .num{font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:900;color:var(--gold);}
+.stat .lbl{font-size:.78rem;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.1em;}
+
+/* SECTION SHARED */
+.container{max-width:1260px;margin:0 auto;padding:0 2rem;}
+.section-header{text-align:center;margin-bottom:3.5rem;}
+.section-label{display:inline-block;color:var(--green-mid);font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;margin-bottom:.8rem;}
+.section-header h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);color:var(--text);margin-bottom:.8rem;}
+.section-header p{color:var(--text-l);font-size:1rem;max-width:580px;margin:0 auto;line-height:1.7;}
+
+/* PAGE HERO BANNER */
+.page-hero{padding:140px 2rem 80px;text-align:center;color:#fff;}
+.page-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.2rem);margin-bottom:1rem;}
+.page-hero p{color:rgba(255,255,255,.85);font-size:1.05rem;max-width:580px;margin:0 auto;}
+
+/* WHY SECTION */
+.why-section{padding:90px 0;background:#fff;}
+.feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.8rem;}
+.feature-card{background:var(--cream);border-radius:var(--radius);padding:2rem;text-align:center;border:1px solid rgba(0,0,0,.06);transition:all .3s;}
+.feature-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);}
+.feature-card .fc-icon{font-size:2.5rem;margin-bottom:.8rem;}
+.feature-card h3{font-family:'Playfair Display',serif;font-size:1.15rem;margin-bottom:.5rem;color:var(--green-dark);}
+.feature-card p{font-size:.88rem;color:var(--text-l);line-height:1.6;}
+
+/* CATEGORIES SECTION */
+.cat-section{padding:90px 0;background:var(--off);}
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1.2rem;margin-bottom:3rem;}
+.cat-card{background:#fff;border-radius:var(--radius);padding:1.8rem;text-align:center;cursor:pointer;transition:all .3s;border:2px solid transparent;box-shadow:var(--shadow);}
+.cat-card:hover{border-color:var(--green-mid);transform:translateY(-4px);}
+.cat-card .cc-icon{font-size:2.2rem;margin-bottom:.7rem;}
+.cat-card .cc-name{font-weight:600;color:var(--green-dark);font-size:.9rem;}
+.cat-card .cc-count{font-size:.75rem;color:var(--text-l);margin-top:3px;}
+
+/* CTA BANNER */
+.cta-section{background:var(--green-dark);padding:80px 2rem;text-align:center;}
+.cta-section .cta-badge{display:inline-block;background:rgba(201,168,76,.2);border:1px solid var(--gold);color:var(--gold-light);font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;padding:5px 18px;border-radius:100px;margin-bottom:1rem;}
+.cta-section h2{font-family:'Playfair Display',serif;color:#fff;font-size:clamp(1.8rem,4vw,2.8rem);margin-bottom:1rem;}
+.cta-section p{color:rgba(255,255,255,.8);max-width:500px;margin:0 auto 2.5rem;line-height:1.7;}
+
+/* PRODUCTS PAGE */
+#page-products{background:var(--off);padding-top:90px;}
+.prod-controls{display:flex;flex-wrap:wrap;gap:.8rem;margin-bottom:2rem;align-items:center;justify-content:center;}
+.prod-search{padding:10px 18px;border:2px solid #ddd;border-radius:10px;font-size:.9rem;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s;background:#fff;min-width:240px;}
+.prod-search:focus{border-color:var(--green-mid);}
+.filter-wrap{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;margin-bottom:2rem;}
+.filter-btn{padding:7px 18px;border-radius:100px;border:2px solid #ddd;background:#fff;cursor:pointer;font-size:.83rem;font-weight:500;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.filter-btn:hover{border-color:var(--green-mid);color:var(--green-mid);}
+.filter-btn.active{background:var(--green-dark);border-color:var(--green-dark);color:#fff;}
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1.5rem;padding-bottom:60px;}
+.product-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07);transition:all .3s;cursor:pointer;border:1px solid rgba(0,0,0,.05);}
+.product-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);}
+.prod-img{height:180px;display:flex;align-items:center;justify-content:center;font-size:3.5rem;position:relative;overflow:hidden;}
+.prod-img img{width:100%;height:100%;object-fit:cover;}
+.prod-img .cat-tag{position:absolute;top:10px;left:10px;background:rgba(255,255,255,.92);color:var(--green-dark);font-size:.68rem;font-weight:700;padding:3px 10px;border-radius:100px;text-transform:uppercase;letter-spacing:.06em;}
+.prod-info{padding:1.2rem;}
+.prod-info h3{font-size:.93rem;font-weight:700;margin-bottom:.4rem;color:var(--text);line-height:1.4;}
+.prod-info .prod-desc{font-size:.78rem;color:var(--text-l);margin-bottom:.9rem;line-height:1.45;min-height:2.2rem;}
+.prod-footer{display:flex;align-items:flex-end;justify-content:space-between;padding-top:.8rem;border-top:1px solid #f0f0f0;}
+.prod-footer .pack{font-size:.78rem;color:var(--text-l);font-weight:500;}
+.prod-prices{text-align:right;}
+.prod-prices .mrp{font-size:.75rem;color:var(--text-l);}
+.prod-prices .mrp span{text-decoration:line-through;}
+.prod-prices .ptr{font-size:1.1rem;font-weight:700;color:var(--green-dark);}
+.prod-prices .ptr-lbl{font-size:.62rem;color:var(--green-mid);font-weight:700;letter-spacing:.05em;}
+
+/* ABOUT PAGE */
+#page-about .about-content{padding:80px 0;}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;margin-bottom:5rem;}
+.about-visual{border-radius:20px;overflow:hidden;height:360px;display:flex;align-items:center;justify-content:center;font-size:5rem;}
+.about-text .section-label{display:block;margin-bottom:.5rem;}
+.about-text h2{font-family:'Playfair Display',serif;font-size:2.1rem;margin-bottom:1.2rem;color:var(--green-dark);}
+.about-text p{color:var(--text-m);line-height:1.8;margin-bottom:1rem;font-size:.95rem;}
+.values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem;margin-top:4rem;}
+.value-card{background:#fff;padding:2rem;border-radius:16px;text-align:center;box-shadow:0 2px 16px rgba(0,0,0,.06);}
+.value-card .vi{font-size:2.2rem;margin-bottom:.8rem;}
+.value-card h3{font-family:'Playfair Display',serif;font-size:1.15rem;margin-bottom:.5rem;color:var(--green-dark);}
+.value-card p{font-size:.85rem;color:var(--text-l);line-height:1.6;}
+
+/* CONTACT PAGE */
+#page-contact .contact-content{padding:70px 0;}
+.contact-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:3.5rem;}
+.contact-info h3{font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:1.8rem;color:var(--green-dark);}
+.info-item{display:flex;gap:.9rem;margin-bottom:1.4rem;align-items:flex-start;}
+.info-icon{width:42px;height:42px;background:var(--green-dark);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.info-item h4{font-size:.78rem;color:var(--text-l);margin-bottom:.25rem;font-weight:500;text-transform:uppercase;letter-spacing:.08em;}
+.info-item p{color:var(--text);font-weight:500;font-size:.92rem;line-height:1.5;}
+.query-form{background:#fff;padding:2.5rem;border-radius:20px;box-shadow:var(--shadow);}
+.query-form h3{font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:.4rem;color:var(--green-dark);}
+.query-form .form-intro{color:var(--text-l);font-size:.87rem;margin-bottom:1.8rem;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.form-group{margin-bottom:1.1rem;}
+.form-group label{display:block;font-size:.8rem;font-weight:600;margin-bottom:5px;color:var(--text);}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:10px 14px;border:2px solid #e8e8e8;border-radius:9px;font-size:.88rem;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s;color:var(--text);}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--green-mid);}
+.form-group textarea{height:110px;resize:vertical;}
+.btn-submit{width:100%;background:var(--green-dark);color:#fff;border:none;padding:13px;border-radius:10px;font-size:.95rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;letter-spacing:.02em;}
+.btn-submit:hover{background:var(--green-mid);transform:translateY(-1px);}
+.form-success{display:none;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:10px;padding:1.2rem;text-align:center;color:var(--green-dark);margin-top:1rem;font-weight:600;}
+
+/* CUSTOM PAGES */
+.custom-page-content{padding:80px 0;}
+.custom-page-inner{max-width:900px;margin:0 auto;background:#fff;border-radius:20px;padding:3rem;box-shadow:var(--shadow);}
+.custom-page-inner img{max-width:100%;border-radius:12px;margin:1rem 0;}
+
+/* FOOTER */
+footer{background:var(--green-dark);color:rgba(255,255,255,.8);padding:60px 0 30px;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem;margin-bottom:3rem;}
+.footer-brand .logo-text{font-family:'Playfair Display',serif;font-size:1.4rem;color:#fff;margin-bottom:.4rem;}
+.footer-brand .sub{color:var(--gold-light);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:1rem;}
+.footer-brand p{font-size:.85rem;line-height:1.7;max-width:300px;}
+.footer-col h4{color:var(--gold-light);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:1.1rem;}
+.footer-col a{display:block;color:rgba(255,255,255,.7);font-size:.85rem;margin-bottom:.5rem;transition:color .2s;cursor:pointer;}
+.footer-col a:hover{color:#fff;}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:1.8rem;display:flex;justify-content:space-between;align-items:center;font-size:.8rem;flex-wrap:wrap;gap:.5rem;}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:2000;align-items:center;justify-content:center;padding:2rem;}
+.modal-overlay.open{display:flex;}
+.modal{background:#fff;border-radius:20px;max-width:560px;width:100%;padding:2.5rem;position:relative;animation:fadeUp .3s ease;max-height:90vh;overflow-y:auto;}
+.modal-close{position:absolute;top:1rem;right:1rem;background:#f0f0f0;border:none;width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:1rem;}
+.modal-close:hover{background:#e0e0e0;}
+.modal-img{width:100%;height:200px;object-fit:cover;border-radius:12px;margin-bottom:1rem;display:none;}
+.modal-icon{font-size:3.5rem;margin-bottom:.8rem;}
+.modal-cat{color:var(--green-mid);font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem;}
+.modal h2{font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:.8rem;color:var(--green-dark);}
+.modal-desc{color:var(--text-m);line-height:1.7;margin-bottom:1.5rem;font-size:.92rem;}
+.modal-prices{display:flex;gap:1.5rem;background:var(--off);padding:1.2rem;border-radius:12px;margin-bottom:2rem;flex-wrap:wrap;}
+.modal-price-item .mlbl{font-size:.72rem;color:var(--text-l);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;}
+.modal-price-item .mamnt{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--green-dark);}
+.modal-price-item .msub{font-size:.72rem;color:var(--text-l);}
+.btn-modal-cta{width:100%;background:var(--green-dark);color:#fff;border:none;padding:13px;border-radius:10px;font-size:.92rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.btn-modal-cta:hover{background:var(--green-mid);}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  nav{padding:0 1.2rem;}
+  .nav-links{display:none;position:absolute;top:68px;left:0;right:0;background:rgba(26,74,46,.98);flex-direction:column;padding:1rem;gap:.2rem;}
+  .nav-links.open{display:flex;}
+  .hamburger{display:flex;}
+  .about-grid{grid-template-columns:1fr;}
+  .values-grid{grid-template-columns:1fr;}
+  .contact-grid{grid-template-columns:1fr;}
+  .footer-grid{grid-template-columns:1fr;gap:2rem;}
+  .footer-bottom{flex-direction:column;text-align:center;}
+  .form-row{grid-template-columns:1fr;}
+  .hero-stats{gap:1.5rem;}
+}
+@media(max-width:600px){
+  .products-grid{grid-template-columns:1fr 1fr;}
+  .cat-grid{grid-template-columns:repeat(3,1fr);}
+}
+@media(max-width:420px){
+  .products-grid{grid-template-columns:1fr;}
+}
+</style>
 </head>
 <body>
 
-<!-- NAVBAR -->
+<!-- NAV -->
 <nav id="navbar">
-  <a class="nav-logo" href="#" onclick="showPage('home')">
-    <div style="width:44px;height:44px;background:var(--gold);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;font-weight:900;color:var(--green-dark);font-family:'Playfair Display',serif;">EJ</div>
-    <div class="nav-logo-text">
-      <div class="brand">ESS JEE</div>
+  <div class="nav-logo" onclick="showPage('home')">
+    <div class="logo-mark" id="navLogoMark">EJ</div>
+    <div class="logo-text">
+      <div class="brand" id="navBrand">ESS JEE</div>
       <div class="tagline">Pharmaceuticals · Herbal</div>
     </div>
-  </a>
+  </div>
   <div class="nav-links" id="navLinks">
-    <a href="#" onclick="showPage('home')" id="nav-home" class="active">Home</a>
-    <a href="#" onclick="showPage('products')" id="nav-products">Products</a>
-    <a href="#" onclick="showPage('about')" id="nav-about">About Us</a>
-    <a href="#" onclick="showPage('contact')" id="nav-contact">Contact</a>
-    <a href="#" class="btn-quote" onclick="showPage('contact')">Send Inquiry</a>
+    <a onclick="showPage('home')" id="nav-home" class="active">Home</a>
+    <a onclick="showPage('products')" id="nav-products">Products</a>
+    <a onclick="showPage('about')" id="nav-about">About Us</a>
+    <a onclick="showPage('contact')" id="nav-contact">Contact</a>
+    <a class="nav-cta" onclick="showPage('contact')">Send Inquiry</a>
   </div>
-  <div class="hamburger" onclick="toggleMenu()">
+  <button class="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')">
     <span></span><span></span><span></span>
-  </div>
+  </button>
 </nav>
 
 <!-- HOME PAGE -->
-<div id="home-page">
-  <section class="hero">
+<div id="page-home" class="page active">
+
+  <!-- HERO -->
+  <section class="hero" id="heroSection">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-pattern"></div>
     <div class="hero-content">
-      <div class="hero-badge">🌿 Ayurvedic &amp; Herbal Products</div>
-      <h1>Healing Through <span>Nature's</span> Wisdom</h1>
-      <p>Ess Jee Pharmaceuticals brings you a complete range of premium herbal formulations. Trusted by pharmacies and distributors across India for quality, efficacy, and value.</p>
+      <div class="hero-badge" id="heroBadge">🌿 Ayurvedic &amp; Herbal Products</div>
+      <h1 id="heroHeading"></h1>
+      <p id="heroSubtext"></p>
       <div class="hero-btns">
-        <a href="#" class="btn-primary" onclick="showPage('products')">Browse Products</a>
-        <a href="#" class="btn-outline" onclick="showPage('contact')">Request Price List</a>
+        <span class="btn-primary" id="heroBtn1" onclick="showPage('products')">Browse Products</span>
+        <span class="btn-outline" id="heroBtn2" onclick="showPage('contact')">Request Price List</span>
       </div>
       <div class="hero-stats">
-        <div class="stat"><div class="num">60+</div><div class="label">Products</div></div>
-        <div class="stat"><div class="num">B2B</div><div class="label">Wholesale</div></div>
-        <div class="stat"><div class="num">100%</div><div class="label">Herbal</div></div>
+        <div class="stat"><div class="num" id="heroStatProd">60+</div><div class="lbl">Products</div></div>
+        <div class="stat"><div class="num">B2B</div><div class="lbl">Wholesale</div></div>
+        <div class="stat"><div class="num">100%</div><div class="lbl">Herbal</div></div>
       </div>
     </div>
   </section>
 
-  <!-- WHY CHOOSE US -->
-  <section style="padding:90px 0;background:white;">
+  <!-- WHY -->
+  <section class="why-section" id="whySection">
     <div class="container">
       <div class="section-header">
         <span class="section-label">Why Choose Us</span>
-        <h2>Trusted by Distributors &amp; Pharmacies</h2>
-        <p>We offer the finest Ayurvedic formulations with competitive B2B pricing and reliable supply chain.</p>
+        <h2 id="whyHeading">Trusted by Distributors &amp; Pharmacies</h2>
+        <p id="whySubtext"></p>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2rem;">
-        <div class="value-card">
-          <div class="icon">🌿</div>
-          <h3>100% Herbal</h3>
-          <p>All products are made from natural, Ayurvedic ingredients with no harmful chemicals.</p>
-        </div>
-        <div class="value-card">
-          <div class="icon">💰</div>
-          <h3>Best PTR</h3>
-          <p>Competitive trade pricing that allows healthy margins for our distribution partners.</p>
-        </div>
-        <div class="value-card">
-          <div class="icon">🚚</div>
-          <h3>Pan India Supply</h3>
-          <p>Reliable and timely delivery across India for all your bulk requirements.</p>
-        </div>
-        <div class="value-card">
-          <div class="icon">✅</div>
-          <h3>Quality Assured</h3>
-          <p>Each product undergoes rigorous quality checks before reaching your shelves.</p>
-        </div>
-      </div>
+      <div class="feature-grid" id="featureGrid"></div>
     </div>
   </section>
 
-  <!-- FEATURED PRODUCTS TEASER -->
-  <section style="padding:90px 0;background:var(--off-white);">
+  <!-- CATEGORIES -->
+  <section class="cat-section">
     <div class="container">
       <div class="section-header">
         <span class="section-label">Our Range</span>
-        <h2>Popular Product Categories</h2>
-        <p>From cough syrups to liver tonics, pain oils to immunity boosters — we have it all.</p>
+        <h2>Browse by Category</h2>
+        <p>From cough syrups to liver tonics — we have complete Ayurvedic coverage.</p>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1.5rem;margin-bottom:3rem;">
-        <div onclick="filterAndShow('Syrup')" style="cursor:pointer;background:white;border-radius:16px;padding:2rem;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.07);transition:all 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-          <div style="font-size:2.5rem;margin-bottom:0.8rem;">🧴</div>
-          <div style="font-weight:600;color:var(--green-dark);">Syrups</div>
-          <div style="font-size:0.8rem;color:var(--text-light);margin-top:4px;">40+ Products</div>
-        </div>
-        <div onclick="filterAndShow('Oil')" style="cursor:pointer;background:white;border-radius:16px;padding:2rem;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.07);transition:all 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-          <div style="font-size:2.5rem;margin-bottom:0.8rem;">💧</div>
-          <div style="font-weight:600;color:var(--green-dark);">Oils</div>
-          <div style="font-size:0.8rem;color:var(--text-light);margin-top:4px;">3 Products</div>
-        </div>
-        <div onclick="filterAndShow('Juice')" style="cursor:pointer;background:white;border-radius:16px;padding:2rem;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.07);transition:all 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-          <div style="font-size:2.5rem;margin-bottom:0.8rem;">🥤</div>
-          <div style="font-weight:600;color:var(--green-dark);">Juices</div>
-          <div style="font-size:0.8rem;color:var(--text-light);margin-top:4px;">3 Products</div>
-        </div>
-        <div onclick="filterAndShow('Capsule')" style="cursor:pointer;background:white;border-radius:16px;padding:2rem;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.07);transition:all 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-          <div style="font-size:2.5rem;margin-bottom:0.8rem;">💊</div>
-          <div style="font-weight:600;color:var(--green-dark);">Capsules</div>
-          <div style="font-size:0.8rem;color:var(--text-light);margin-top:4px;">2 Products</div>
-        </div>
-        <div onclick="filterAndShow('Kit')" style="cursor:pointer;background:white;border-radius:16px;padding:2rem;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.07);transition:all 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-          <div style="font-size:2.5rem;margin-bottom:0.8rem;">📦</div>
-          <div style="font-weight:600;color:var(--green-dark);">Kits &amp; Combos</div>
-          <div style="font-size:0.8rem;color:var(--text-light);margin-top:4px;">5 Products</div>
-        </div>
-        <div onclick="filterAndShow('Ras')" style="cursor:pointer;background:white;border-radius:16px;padding:2rem;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.07);transition:all 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-          <div style="font-size:2.5rem;margin-bottom:0.8rem;">🍃</div>
-          <div style="font-weight:600;color:var(--green-dark);">Ras</div>
-          <div style="font-size:0.8rem;color:var(--text-light);margin-top:4px;">7 Products</div>
-        </div>
-      </div>
-      <div style="text-align:center;">
-        <a href="#" class="btn-primary" onclick="showPage('products')">View All 60 Products →</a>
+      <div class="cat-grid" id="catGrid"></div>
+      <div style="text-align:center">
+        <span class="btn-primary" onclick="showPage('products')">View All Products →</span>
       </div>
     </div>
   </section>
 
   <!-- CTA -->
-  <section style="background:var(--green-dark);padding:80px 2rem;text-align:center;">
-    <div class="hero-badge" style="background:rgba(201,168,76,0.2);">Ready to Partner?</div>
-    <h2 style="font-family:'Playfair Display',serif;color:white;font-size:2.5rem;margin:1rem 0;">Become a Distributor Today</h2>
-    <p style="color:rgba(255,255,255,0.8);max-width:500px;margin:0 auto 2rem;line-height:1.7;">Join our growing network of pharmacy and wholesale partners. Get best trade prices and dedicated support.</p>
-    <a href="#" class="btn-primary" onclick="showPage('contact')">Get in Touch</a>
+  <section class="cta-section" id="ctaSection">
+    <div class="cta-badge">Ready to Partner?</div>
+    <h2 id="ctaHeading"></h2>
+    <p id="ctaSubtext"></p>
+    <span class="btn-primary" id="ctaBtn" onclick="showPage('contact')">Get in Touch</span>
   </section>
 
-  <footer>
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <div class="logo-text">ESS JEE PHARMACEUTICALS</div>
-          <div class="sub">Herbal Division</div>
-          <p>Premium Ayurvedic &amp; Herbal formulations crafted with traditional wisdom and modern quality standards.</p>
-        </div>
-        <div class="footer-col">
-          <h4>Quick Links</h4>
-          <a onclick="showPage('home')">Home</a>
-          <a onclick="showPage('products')">Products</a>
-          <a onclick="showPage('about')">About Us</a>
-          <a onclick="showPage('contact')">Contact</a>
-        </div>
-        <div class="footer-col">
-          <h4>Contact</h4>
-          <a>Near Plot No 371, MIE Part 1</a>
-          <a>Bahadurgarh – 124507</a>
-          <a>Haryana, India</a>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <span>© 2025 Ess Jee Pharmaceuticals. All rights reserved.</span>
-        <span style="color:var(--text-light);font-size:0.8rem;">Retail Price List effective from 1st April 2025</span>
-      </div>
-    </div>
-  </footer>
+  <div id="homeFooter"></div>
 </div>
 
 <!-- PRODUCTS PAGE -->
-<div id="products-page" class="page-section" style="padding-top:100px;background:var(--off-white);">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-label">Our Range</span>
-      <h2>Product Catalogue</h2>
-      <p>Complete B2B product listing with MRP and PTR pricing. Effective 1st April 2025.</p>
+<div id="page-products" class="page">
+  <div class="page-hero" id="prodHero" style="background:linear-gradient(135deg,#0d3320,#1a4a2e,#2d7a4f)">
+    <h1 id="prodHeroH">Product Catalogue</h1>
+    <p id="prodHeroP">Complete B2B product listing with MRP and PTR pricing.</p>
+  </div>
+  <div class="container" style="padding-top:50px">
+    <div class="prod-controls">
+      <input class="prod-search" type="text" id="prodSearch" placeholder="🔍 Search products by name..." oninput="renderProducts()">
     </div>
-    <div class="search-bar">
-      <input type="text" id="productSearch" placeholder="Search products..." oninput="renderProducts()">
-    </div>
-    <div class="filters" id="filterBtns"></div>
+    <div class="filter-wrap" id="filterWrap"></div>
     <div class="products-grid" id="productsGrid"></div>
   </div>
-  <!-- Footer -->
-  <div style="margin-top:80px;background:var(--green-dark);padding:40px 0;">
-    <div class="container" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
-      <span style="color:rgba(255,255,255,0.8);font-size:0.9rem;">© 2025 Ess Jee Pharmaceuticals</span>
-      <span style="color:var(--gold-light);font-size:0.8rem;">All prices in INR (₹) · B2B Trade Pricing</span>
-    </div>
-  </div>
+  <div id="prodFooter"></div>
 </div>
 
 <!-- ABOUT PAGE -->
-<div id="about-page" class="page-section">
-  <div class="about-hero">
-    <h1>About Ess Jee Pharmaceuticals</h1>
-    <p>Rooted in Ayurvedic tradition, committed to modern quality standards.</p>
+<div id="page-about" class="page">
+  <div class="page-hero" id="aboutHero" style="background:linear-gradient(135deg,#0d3320,#1a4a2e,#2d7a4f)">
+    <h1 id="aboutHeroH"></h1>
+    <p id="aboutHeroP"></p>
   </div>
   <div class="about-content">
     <div class="container">
-      <div class="about-grid">
-        <div style="background:linear-gradient(135deg,var(--green-dark),var(--green-mid));border-radius:20px;height:380px;display:flex;align-items:center;justify-content:center;font-size:6rem;">🌿</div>
+      <div class="about-grid" id="aboutStory">
+        <div class="about-visual" style="background:linear-gradient(135deg,#1a4a2e,#2d7a4f)">🌿</div>
         <div class="about-text">
           <span class="section-label">Our Story</span>
-          <h2>Healing India, Naturally</h2>
-          <p>Ess Jee Pharmaceuticals is a dedicated Herbal Division focused on bringing the best of Ayurvedic science to modern healthcare. We believe in the power of nature to heal, and our products are a testament to that belief.</p>
-          <p>Based in Bahadurgarh, Haryana, we serve pharmacies, distributors, and healthcare providers across India with a growing portfolio of over 60 carefully formulated herbal products.</p>
-          <p>Our formulations cover a wide spectrum — from liver tonics and cough syrups to joint pain oils, digestive aids, blood purifiers, and immunity boosters — all made with premium quality herbs.</p>
+          <h2 id="storyH"></h2>
+          <p id="storyP1"></p>
+          <p id="storyP2"></p>
+          <p id="storyP3"></p>
         </div>
       </div>
-      <div class="about-grid" style="margin-bottom:0;">
+      <div class="about-grid" style="flex-direction:row-reverse">
         <div class="about-text">
           <span class="section-label">Our Mission</span>
-          <h2>Quality You Can Trust</h2>
-          <p>We are committed to producing herbal medicines that are safe, effective, and accessible. Every product in our range undergoes strict quality control to ensure consistency and potency.</p>
-          <p>Our B2B pricing model ensures that our trade partners — pharmacies, distributors, and stockists — can maintain healthy margins while offering patients genuinely good herbal alternatives.</p>
+          <h2 id="missionH"></h2>
+          <p id="missionP1"></p>
+          <p id="missionP2"></p>
         </div>
-        <div style="background:linear-gradient(135deg,var(--gold),#8a6910);border-radius:20px;height:380px;display:flex;align-items:center;justify-content:center;font-size:6rem;">⚗️</div>
+        <div class="about-visual" style="background:linear-gradient(135deg,#c9a84c,#8a6910)">⚗️</div>
       </div>
-      <div class="section-header" style="margin-top:5rem;">
+      <div class="section-header" style="margin-top:5rem">
         <span class="section-label">Our Values</span>
         <h2>What Drives Us</h2>
       </div>
-      <div class="values-grid">
-        <div class="value-card">
-          <div class="icon">🌱</div>
-          <h3>Natural Ingredients</h3>
-          <p>We source the finest herbs and botanicals to create formulations that are gentle yet powerful.</p>
-        </div>
-        <div class="value-card">
-          <div class="icon">🤝</div>
-          <h3>Partner First</h3>
-          <p>Our distributors and pharmacies are our partners. We work hard to ensure their success.</p>
-        </div>
-        <div class="value-card">
-          <div class="icon">📋</div>
-          <h3>Transparency</h3>
-          <p>Clear pricing, clear ingredients, and clear communication — always.</p>
-        </div>
-      </div>
+      <div class="values-grid" id="valuesGrid"></div>
     </div>
   </div>
-  <footer>
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <div class="logo-text">ESS JEE PHARMACEUTICALS</div>
-          <div class="sub">Herbal Division</div>
-          <p>Premium Ayurvedic &amp; Herbal formulations crafted with traditional wisdom and modern quality standards.</p>
-        </div>
-        <div class="footer-col">
-          <h4>Quick Links</h4>
-          <a onclick="showPage('home')">Home</a>
-          <a onclick="showPage('products')">Products</a>
-          <a onclick="showPage('about')">About Us</a>
-          <a onclick="showPage('contact')">Contact</a>
-        </div>
-        <div class="footer-col">
-          <h4>Address</h4>
-          <a>Near Plot No 371, MIE Part 1</a>
-          <a>Bahadurgarh – 124507</a>
-          <a>Haryana, India</a>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <span>© 2025 Ess Jee Pharmaceuticals. All rights reserved.</span>
-      </div>
-    </div>
-  </footer>
+  <div id="aboutFooter"></div>
 </div>
 
 <!-- CONTACT PAGE -->
-<div id="contact-page" class="page-section">
-  <div class="contact-hero">
-    <h1>Get In Touch</h1>
-    <p>Send us a query, request a quote, or enquire about becoming a distributor.</p>
+<div id="page-contact" class="page" style="background:var(--off)">
+  <div class="page-hero" id="contactHero" style="background:linear-gradient(135deg,#0d3320,#1a4a2e,#2d7a4f)">
+    <h1 id="contactHeroH"></h1>
+    <p id="contactHeroP"></p>
   </div>
   <div class="contact-content">
     <div class="container">
@@ -280,63 +360,39 @@
           <h3>Contact Information</h3>
           <div class="info-item">
             <div class="info-icon">📍</div>
-            <div>
-              <h4>Address</h4>
-              <p>Near Plot No 371, MIE Part 1<br>Bahadurgarh – 124507<br>Haryana, India</p>
-            </div>
+            <div><h4>Address</h4><p id="infoAddress"></p></div>
           </div>
-          <div class="info-item">
+          <div class="info-item" id="infoPhoneWrap" style="display:none">
             <div class="info-icon">📞</div>
-            <div>
-              <h4>Phone / WhatsApp</h4>
-              <p>Contact via inquiry form</p>
-            </div>
+            <div><h4>Phone / WhatsApp</h4><p id="infoPhone"></p></div>
+          </div>
+          <div class="info-item" id="infoEmailWrap" style="display:none">
+            <div class="info-icon">📧</div>
+            <div><h4>Email</h4><p id="infoEmail"></p></div>
           </div>
           <div class="info-item">
             <div class="info-icon">🕐</div>
-            <div>
-              <h4>Business Hours</h4>
-              <p>Mon – Sat: 9:00 AM – 6:00 PM<br>Sunday: Closed</p>
-            </div>
+            <div><h4>Business Hours</h4><p id="infoHours" style="white-space:pre-line"></p></div>
           </div>
           <div class="info-item">
             <div class="info-icon">🏭</div>
-            <div>
-              <h4>Business Type</h4>
-              <p>B2B Wholesale · Distributors<br>Pharmacies · Stockists</p>
-            </div>
-          </div>
-          <div style="background:var(--green-dark);border-radius:16px;padding:2rem;margin-top:2rem;color:white;">
-            <h4 style="color:var(--gold-light);font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1rem;">Price List 2025</h4>
-            <p style="font-size:0.9rem;color:rgba(255,255,255,0.8);line-height:1.6;">Our retail price list is effective from 1st April 2025. Contact us for bulk pricing and distributor terms.</p>
+            <div><h4>Business Type</h4><p>B2B Wholesale · Distributors<br>Pharmacies · Stockists</p></div>
           </div>
         </div>
         <div class="query-form">
           <h3>Send Us a Query</h3>
-          <p>Fill in the form and our team will get back to you within 24 hours.</p>
+          <p class="form-intro" id="formIntro"></p>
           <div class="form-row">
-            <div class="form-group">
-              <label>Full Name *</label>
-              <input type="text" id="fname" placeholder="Your name">
-            </div>
-            <div class="form-group">
-              <label>Business Name *</label>
-              <input type="text" id="bname" placeholder="Pharmacy / Company name">
-            </div>
+            <div class="form-group"><label>Full Name *</label><input type="text" id="qName" placeholder="Your full name"></div>
+            <div class="form-group"><label>Business Name *</label><input type="text" id="qBiz" placeholder="Pharmacy / Company name"></div>
           </div>
           <div class="form-row">
-            <div class="form-group">
-              <label>Phone Number *</label>
-              <input type="tel" id="phone" placeholder="+91 XXXXX XXXXX">
-            </div>
-            <div class="form-group">
-              <label>Email Address</label>
-              <input type="email" id="email" placeholder="your@email.com">
-            </div>
+            <div class="form-group"><label>Phone Number *</label><input type="tel" id="qPhone" placeholder="+91 XXXXX XXXXX"></div>
+            <div class="form-group"><label>Email Address</label><input type="email" id="qEmail" placeholder="your@email.com"></div>
           </div>
           <div class="form-group">
             <label>Business Type</label>
-            <select id="btype">
+            <select id="qType">
               <option>Select business type</option>
               <option>Pharmacy / Medical Store</option>
               <option>Wholesale Distributor</option>
@@ -346,27 +402,91 @@
               <option>Other</option>
             </select>
           </div>
-          <div class="form-group">
-            <label>City / State</label>
-            <input type="text" id="city" placeholder="Your city and state">
-          </div>
-          <div class="form-group">
-            <label>Your Query / Message *</label>
-            <textarea id="message" placeholder="Tell us what products you're interested in, or ask any question..."></textarea>
-          </div>
+          <div class="form-group"><label>City / State</label><input type="text" id="qCity" placeholder="Your city and state"></div>
+          <div class="form-group"><label>Your Message *</label><textarea id="qMsg" placeholder="Tell us what products you're interested in, quantity needed, or ask any question..."></textarea></div>
           <button class="btn-submit" onclick="submitQuery()">Send Query →</button>
-          <div class="form-success" id="formSuccess">
-            ✅ Thank you! Your query has been received. We'll contact you within 24 hours.
-          </div>
+          <div class="form-success" id="formSuccess">✅ Thank you! Your query has been received. We will contact you within 24 hours.</div>
         </div>
       </div>
     </div>
   </div>
+  <div id="contactFooter"></div>
+</div>
+
+<!-- CUSTOM PAGES CONTAINER -->
+<div id="page-custom" class="page">
+  <div class="page-hero" id="customPageHero" style="background:linear-gradient(135deg,#0d3320,#1a4a2e,#2d7a4f)">
+    <h1 id="customPageHeroH">Page</h1>
+    <p id="customPageHeroP"></p>
+  </div>
+  <div class="custom-page-content">
+    <div class="container">
+      <div class="custom-page-inner" id="customPageBody"></div>
+    </div>
+  </div>
+  <div id="customFooter"></div>
+</div>
+
+<!-- PRODUCT MODAL -->
+<div class="modal-overlay" id="prodModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <img id="modalImg" class="modal-img" alt="">
+    <div class="modal-icon" id="modalIcon"></div>
+    <div class="modal-cat" id="modalCat"></div>
+    <h2 id="modalName"></h2>
+    <p class="modal-desc" id="modalDesc"></p>
+    <div class="modal-prices">
+      <div class="modal-price-item"><div class="mlbl">Pack</div><div class="mamnt" id="modalPack" style="font-size:1.3rem"></div></div>
+      <div class="modal-price-item"><div class="mlbl">MRP</div><div class="mamnt" id="modalMrp"></div><div class="msub">Max Retail Price</div></div>
+      <div class="modal-price-item"><div class="mlbl">PTR</div><div class="mamnt" id="modalPtr" style="color:var(--green-mid)"></div><div class="msub">Price to Retailer</div></div>
+    </div>
+    <button class="btn-modal-cta" onclick="closeModal();showPage('contact')">📩 Send Inquiry for This Product</button>
+  </div>
+</div>
+
+<script src="js/cms.js"></script>
+<script>
+// ══════════════════════════════════
+//  PUBLIC SITE RENDERER
+// ══════════════════════════════════
+
+let activeFilter = 'All';
+let currentPage  = 'home';
+let customPageIndex = -1;
+
+// ── NAV ──────────────────────────
+function showPage(page, customIdx) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a[id^="nav-"]').forEach(a => a.classList.remove('active'));
+
+  if (page === 'custom' && customIdx !== undefined) {
+    customPageIndex = customIdx;
+    renderCustomPage(customIdx);
+    document.getElementById('page-custom').classList.add('active');
+  } else {
+    const el = document.getElementById('page-' + page);
+    if (el) el.classList.add('active');
+    const navEl = document.getElementById('nav-' + page);
+    if (navEl) navEl.classList.add('active');
+  }
+
+  if (page === 'products') renderProducts();
+  currentPage = page;
+  window.scrollTo(0,0);
+  document.getElementById('navLinks').classList.remove('open');
+}
+
+// ── FOOTER TEMPLATE ──────────────
+function makeFooter(site, pages, customPages) {
+  const cpLinks = customPages.filter(p=>p.visible!==false).map((p,i) =>
+    `<a onclick="showPage('custom',${i})">${p.name}</a>`).join('');
+  return `
   <footer>
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <div class="logo-text">ESS JEE PHARMACEUTICALS</div>
+          <div class="logo-text">${site.company.toUpperCase()}</div>
           <div class="sub">Herbal Division</div>
           <p>Premium Ayurvedic &amp; Herbal formulations crafted with traditional wisdom and modern quality standards.</p>
         </div>
@@ -376,50 +496,253 @@
           <a onclick="showPage('products')">Products</a>
           <a onclick="showPage('about')">About Us</a>
           <a onclick="showPage('contact')">Contact</a>
+          ${cpLinks}
         </div>
         <div class="footer-col">
-          <h4>Address</h4>
-          <a>Near Plot No 371, MIE Part 1</a>
-          <a>Bahadurgarh – 124507</a>
-          <a>Haryana, India</a>
+          <h4>Contact Us</h4>
+          <a>${site.address}</a>
+          ${site.phone ? `<a href="tel:${site.phone}">${site.phone}</a>` : ''}
+          ${site.email ? `<a href="mailto:${site.email}">${site.email}</a>` : ''}
         </div>
       </div>
       <div class="footer-bottom">
-        <span>© 2025 Ess Jee Pharmaceuticals. All rights reserved.</span>
+        <span>© ${new Date().getFullYear()} ${site.company}. All rights reserved.</span>
+        <span style="color:rgba(255,255,255,.5)">Price List effective ${site.priceListDate}</span>
       </div>
     </div>
-  </footer>
-</div>
+  </footer>`;
+}
 
-<!-- PRODUCT MODAL -->
-<div class="modal-overlay" id="productModal">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal()">✕</button>
-    <div class="modal-product-icon" id="modal-icon"></div>
-    <div class="modal-cat" id="modal-cat"></div>
-    <h2 id="modal-name"></h2>
-    <p class="modal-desc" id="modal-desc"></p>
-    <div class="modal-prices">
-      <div class="price-item">
-        <div class="label">Pack Size</div>
-        <div class="amount" id="modal-pack" style="font-size:1.4rem;"></div>
-      </div>
-      <div class="price-item">
-        <div class="label">MRP</div>
-        <div class="amount" id="modal-mrp"></div>
-        <div class="sub">Max Retail Price</div>
-      </div>
-      <div class="price-item">
-        <div class="label">PTR</div>
-        <div class="amount" id="modal-ptr" style="color:var(--green-mid);"></div>
-        <div class="sub">Price to Retailer</div>
-      </div>
-    </div>
-    <button class="btn-inquiry" onclick="closeModal();showPage('contact')">Send Inquiry for This Product</button>
-  </div>
-</div>
+// ── RENDER SITE ──────────────────
+function renderSite() {
+  const site   = CMS.getSite();
+  const pages  = CMS.getPages();
+  const cps    = CMS.getCustomPages();
+  const prods  = CMS.getProducts();
 
-<script src="js/products.js"></script>
-<script src="js/app.js"></script>
+  // Apply theme colors
+  CMS.applyTheme(site);
+
+  // Page title
+  document.getElementById('pageTitle').textContent = site.company + ' – Herbal Division';
+
+  // Nav brand
+  document.getElementById('navBrand').textContent = site.company.split(' ').slice(0,2).join(' ').toUpperCase();
+
+  // ── HOME ──
+  const home = pages.home;
+  const hero = home.sections.hero;
+  document.getElementById('heroBg').style.background = site.heroBg || '';
+  document.getElementById('heroBadge').textContent = '🌿 Ayurvedic & Herbal Products';
+  document.getElementById('heroHeading').innerHTML = hero.heading || site.heroTitle;
+  document.getElementById('heroSubtext').textContent = hero.subtext || site.heroSubtitle;
+  document.getElementById('heroBtn1').textContent = hero.btn1Text || 'Browse Products';
+  document.getElementById('heroBtn2').textContent = hero.btn2Text || 'Request Price List';
+  document.getElementById('heroStatProd').textContent = prods.length + '+';
+
+  const why = home.sections.why;
+  document.getElementById('whyHeading').innerHTML = why.heading || '';
+  document.getElementById('whySubtext').textContent = why.subtext || '';
+  const fg = document.getElementById('featureGrid');
+  fg.innerHTML = (why.cards||[]).map(c => `
+    <div class="feature-card">
+      <div class="fc-icon">${c.icon}</div>
+      <h3>${c.title}</h3>
+      <p>${c.text}</p>
+    </div>`).join('');
+
+  // Category grid on home
+  const cats = {};
+  prods.forEach(p => { cats[p.category] = (cats[p.category]||0)+1; });
+  document.getElementById('catGrid').innerHTML = Object.entries(cats).map(([cat, cnt]) => `
+    <div class="cat-card" onclick="filterAndShow('${cat}')">
+      <div class="cc-icon">${CAT_ICONS[cat]||'🌿'}</div>
+      <div class="cc-name">${cat}</div>
+      <div class="cc-count">${cnt} Product${cnt>1?'s':''}</div>
+    </div>`).join('');
+
+  const cta = home.sections.cta;
+  document.getElementById('ctaHeading').textContent = cta.heading || '';
+  document.getElementById('ctaSubtext').textContent = cta.subtext || '';
+  document.getElementById('ctaBtn').textContent = cta.btnText || 'Get in Touch';
+
+  // ── PRODUCTS ──
+  const pp = pages.products;
+  document.getElementById('prodHeroH').textContent = pp.heroHeading || 'Product Catalogue';
+  document.getElementById('prodHeroP').textContent = pp.heroSubtext || '';
+
+  // ── ABOUT ──
+  const ap = pages.about;
+  document.getElementById('aboutHeroH').textContent = ap.heroHeading || '';
+  document.getElementById('aboutHeroP').textContent = ap.heroSubtext || '';
+  document.getElementById('storyH').textContent   = ap.story?.heading || '';
+  document.getElementById('storyP1').textContent  = ap.story?.para1 || '';
+  document.getElementById('storyP2').textContent  = ap.story?.para2 || '';
+  document.getElementById('storyP3').textContent  = ap.story?.para3 || '';
+  document.getElementById('missionH').textContent  = ap.mission?.heading || '';
+  document.getElementById('missionP1').textContent = ap.mission?.para1 || '';
+  document.getElementById('missionP2').textContent = ap.mission?.para2 || '';
+  document.getElementById('valuesGrid').innerHTML = (ap.values||[]).map(v => `
+    <div class="value-card">
+      <div class="vi">${v.icon}</div>
+      <h3>${v.title}</h3>
+      <p>${v.text}</p>
+    </div>`).join('');
+
+  // ── CONTACT ──
+  const cp = pages.contact;
+  document.getElementById('contactHeroH').textContent = cp.heroHeading || '';
+  document.getElementById('contactHeroP').textContent = cp.heroSubtext || '';
+  document.getElementById('formIntro').textContent    = cp.intro || '';
+  document.getElementById('infoAddress').innerHTML    = site.address.replace(', ',',<br>');
+  document.getElementById('infoHours').textContent    = cp.businessHours || 'Mon – Sat: 9AM – 6PM\nSunday: Closed';
+  if (site.phone) {
+    document.getElementById('infoPhoneWrap').style.display='flex';
+    document.getElementById('infoPhone').textContent = site.phone;
+  }
+  if (site.email) {
+    document.getElementById('infoEmailWrap').style.display='flex';
+    document.getElementById('infoEmail').textContent = site.email;
+  }
+
+  // Footers on all pages
+  const footerHtml = makeFooter(site, pages, cps);
+  ['home','prod','about','contact','custom'].forEach(id => {
+    const el = document.getElementById(id+'Footer');
+    if (el) el.innerHTML = footerHtml;
+  });
+
+  // Custom pages in nav
+  renderCustomNavLinks(cps);
+}
+
+function renderCustomNavLinks(cps) {
+  // Remove old custom nav items
+  document.querySelectorAll('.custom-nav-item').forEach(e => e.remove());
+  const navLinks = document.getElementById('navLinks');
+  const ctaBtn = navLinks.querySelector('.nav-cta');
+  cps.filter(p=>p.visible!==false).forEach((p,i) => {
+    const a = document.createElement('a');
+    a.className = 'custom-nav-item';
+    a.textContent = p.name;
+    a.onclick = () => showPage('custom', i);
+    navLinks.insertBefore(a, ctaBtn);
+  });
+}
+
+// ── PRODUCTS ─────────────────────
+function filterAndShow(cat) { activeFilter=cat; showPage('products'); }
+
+function renderProducts() {
+  const prods = CMS.getProducts();
+  const search = (document.getElementById('prodSearch')?.value||'').toLowerCase();
+
+  // Filters
+  const cats = ['All', ...new Set(prods.map(p=>p.category))];
+  document.getElementById('filterWrap').innerHTML = cats.map(c =>
+    `<button class="filter-btn ${c===activeFilter?'active':''}" onclick="setFilter('${c}')">${CAT_ICONS[c]||''} ${c}</button>`
+  ).join('');
+
+  const filtered = prods.filter(p => {
+    const mc = activeFilter==='All' || p.category===activeFilter;
+    const ms = !search || p.name.toLowerCase().includes(search) || (p.contents||'').toLowerCase().includes(search);
+    return mc && ms;
+  });
+
+  if (!filtered.length) {
+    document.getElementById('productsGrid').innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:4rem;color:var(--text-l)">No products found.</div>`;
+    return;
+  }
+
+  document.getElementById('productsGrid').innerHTML = filtered.map(p => `
+    <div class="product-card" onclick="openModal(${p.id})">
+      <div class="prod-img" style="background:${p.color||'#e8f5e9'}">
+        ${p.image ? `<img src="${p.image}" alt="${p.name}">` : `<span>${CAT_ICONS[p.category]||'🌿'}</span>`}
+        <span class="cat-tag">${p.category}</span>
+      </div>
+      <div class="prod-info">
+        <h3>${p.name}</h3>
+        <p class="prod-desc">${p.contents||''}</p>
+        <div class="prod-footer">
+          <div class="pack">📦 ${p.pack}</div>
+          <div class="prod-prices">
+            <div class="mrp">MRP: <span>₹${(+p.mrp).toFixed(2)}</span></div>
+            <div class="ptr">₹${(+p.ptr).toFixed(2)}</div>
+            <div class="ptr-lbl">PTR</div>
+          </div>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function setFilter(cat) { activeFilter=cat; renderProducts(); }
+
+// ── MODAL ─────────────────────────
+function openModal(id) {
+  const p = CMS.getProducts().find(x=>x.id===id);
+  if (!p) return;
+  const imgEl = document.getElementById('modalImg');
+  const iconEl = document.getElementById('modalIcon');
+  if (p.image) {
+    imgEl.src = p.image; imgEl.style.display='block'; iconEl.style.display='none';
+  } else {
+    imgEl.style.display='none'; iconEl.style.display='block';
+    iconEl.textContent = CAT_ICONS[p.category]||'🌿';
+  }
+  document.getElementById('modalCat').textContent  = p.category;
+  document.getElementById('modalName').textContent  = p.name;
+  document.getElementById('modalDesc').textContent  = p.contents||'';
+  document.getElementById('modalPack').textContent  = p.pack;
+  document.getElementById('modalMrp').textContent   = '₹'+(+p.mrp).toFixed(2);
+  document.getElementById('modalPtr').textContent   = '₹'+(+p.ptr).toFixed(2);
+  document.getElementById('prodModal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal() {
+  document.getElementById('prodModal').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.getElementById('prodModal').addEventListener('click', e => { if(e.target===document.getElementById('prodModal')) closeModal(); });
+
+// ── CUSTOM PAGE ───────────────────
+function renderCustomPage(idx) {
+  const cps = CMS.getCustomPages();
+  const p = cps[idx];
+  if (!p) return;
+  document.getElementById('customPageHeroH').textContent = p.name;
+  document.getElementById('customPageHeroP').textContent = p.description||'';
+  // Render content — support basic HTML
+  let html = (p.content||'').replace(/\n/g,'<br>');
+  if (p.image) html = `<img src="${p.image}" alt="${p.name}" style="max-width:100%;border-radius:12px;margin-bottom:1.5rem;"><br>` + html;
+  // Apply custom CSS if any
+  let styleTag = document.getElementById('customPageStyle');
+  if (!styleTag) { styleTag=document.createElement('style'); styleTag.id='customPageStyle'; document.head.appendChild(styleTag); }
+  styleTag.textContent = p.customCss||'';
+  document.getElementById('customPageBody').innerHTML = html;
+}
+
+// ── CONTACT FORM ──────────────────
+function submitQuery() {
+  const name  = document.getElementById('qName').value.trim();
+  const biz   = document.getElementById('qBiz').value.trim();
+  const phone = document.getElementById('qPhone').value.trim();
+  const msg   = document.getElementById('qMsg').value.trim();
+  if (!name||!biz||!phone||!msg) { alert('Please fill all required fields.'); return; }
+  CMS.addQuery({
+    name, business:biz, phone,
+    email:  document.getElementById('qEmail').value,
+    type:   document.getElementById('qType').value,
+    city:   document.getElementById('qCity').value,
+    message:msg,
+  });
+  document.getElementById('formSuccess').style.display='block';
+  ['qName','qBiz','qPhone','qEmail','qCity','qMsg'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('qType').selectedIndex=0;
+}
+
+// ── INIT ──────────────────────────
+renderSite();
+renderProducts();
+</script>
 </body>
 </html>
